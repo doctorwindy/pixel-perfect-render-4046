@@ -32,7 +32,13 @@ const settingsSchema = z
 
 function parseSettings(raw: unknown): Settings {
   const r = settingsSchema.safeParse(raw ?? {});
-  return { ...DEFAULT_SETTINGS, ...(r.success ? r.data : {}) };
+  const d = r.success ? r.data : {};
+  return {
+    theme: d.theme ?? DEFAULT_SETTINGS.theme,
+    multiCopyFormat: d.multiCopyFormat ?? DEFAULT_SETTINGS.multiCopyFormat,
+    recordCopyFormat: d.recordCopyFormat ?? DEFAULT_SETTINGS.recordCopyFormat,
+    historyEnabled: d.historyEnabled ?? DEFAULT_SETTINGS.historyEnabled,
+  };
 }
 
 const HISTORY_LIMIT = 30;
@@ -77,6 +83,7 @@ export async function fetchVault(userId: string): Promise<Vault> {
   const records = {} as Record<RecordSectionId, VaultRecord[]>;
   RECORD_SECTIONS.forEach((def, i) => {
     const res = recordRes[i];
+    if (!res) return;
     if (res.error) throw res.error;
     records[def.id] = (res.data ?? []).map((r) => ({
       id: r.id,
@@ -246,8 +253,8 @@ export interface ImportPreview {
   skipped: number;
   valid: { section: RecordSectionId; data: RecordData }[];
   personal: RecordData;
-  displayName?: string;
-  settings?: Settings;
+  displayName?: string | undefined;
+  settings?: Settings | undefined;
 }
 
 export function parseImport(text: string): ImportPreview {
@@ -289,7 +296,7 @@ export function parseImport(text: string): ImportPreview {
     valid,
     personal,
     displayName: file.profile?.display_name,
-    settings: s.success ? ({ ...DEFAULT_SETTINGS, ...s.data } as Settings) : undefined,
+    settings: s.success ? parseSettings(s.data) : undefined,
   };
 }
 

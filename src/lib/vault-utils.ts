@@ -173,8 +173,8 @@ export function flatten(vault: Vault): FlatItem[] {
           path: def.path,
         });
       }
-      if (def.id === "skills" && Array.isArray(rec.data.skills)) {
-        for (const s of rec.data.skills as string[]) {
+      if (def.id === "skills" && Array.isArray(rec.data["skills"])) {
+        for (const s of rec.data["skills"] as string[]) {
           items.push({
             key: makeKey("skills", rec.id, `skill:${s}`),
             section: "skills",

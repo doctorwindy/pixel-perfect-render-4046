@@ -95,7 +95,7 @@ function KvInput({
 }: {
   value: { label: string; value: string }[];
   onChange: (v: { label: string; value: string }[]) => void;
-  suggestions?: string[];
+  suggestions?: string[] | undefined;
 }) {
   const unused = (suggestions ?? []).filter((s) => !value.some((r) => r.label === s));
   return (
