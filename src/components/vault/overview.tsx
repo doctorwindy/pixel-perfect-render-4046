@@ -8,15 +8,14 @@ import {
   RECORD_SECTIONS,
   isEmptyValue,
 } from "@/lib/schema";
-import { cn } from "@/lib/utils";
 import { makeKey, maskValue, timeAgo, valueToString, type FlatItem } from "@/lib/vault-utils";
 import { useVault } from "@/lib/vault-context";
-import { EmptyState, PageHeader, SectionIcon } from "./basics";
+import { PageHeader, SectionIcon } from "./basics";
 import { CopyIconButton, IconAction } from "./copy-field";
 
 const COMPLETENESS_SECTIONS = ["education", "experience", "skills", "projects"] as const;
 
-function Row({ item, onUnstar }: { item: FlatItem; onUnstar?: () => void }) {
+function Row({ item, onUnstar, meta }: { item: FlatItem; onUnstar?: () => void; meta?: string }) {
   return (
     <li className="flex items-center gap-2 rounded-xl px-3 py-2 hover:bg-accent/50">
       <div className="min-w-0 flex-1">
@@ -30,6 +29,7 @@ function Row({ item, onUnstar }: { item: FlatItem; onUnstar?: () => void }) {
           {item.sensitive ? maskValue(item.value) : item.value.replace(/\s+/g, " ")}
         </div>
       </div>
+      {meta ? <span className="shrink-0 text-[11px] text-muted-foreground">{meta}</span> : null}
       {onUnstar ? (
         <IconAction label={`Remove ${item.label} from favorites`} active onClick={onUnstar}>
           <Star className="h-4 w-4 fill-current text-tint-orange" />
@@ -197,14 +197,7 @@ export function Overview() {
           {recent.length ? (
             <ul>
               {recent.map(({ h, item }) => (
-                <li key={h.id} className={cn("relative")}>
-                  <ul>
-                    <Row item={item} />
-                  </ul>
-                  <span className="pointer-events-none absolute right-14 top-2 text-[11px] text-muted-foreground">
-                    {timeAgo(h.created_at)}
-                  </span>
-                </li>
+                <Row key={h.id} item={item} meta={timeAgo(h.created_at)} />
               ))}
             </ul>
           ) : (
@@ -217,14 +210,6 @@ export function Overview() {
         </section>
       </div>
 
-      {v.items.length === 0 ? (
-        <EmptyState
-          icon={ArrowRight as never}
-          tint="blue"
-          title="Your vault is empty"
-          hint="Start with your personal info, then add education, experience and more."
-        />
-      ) : null}
     </div>
   );
 }

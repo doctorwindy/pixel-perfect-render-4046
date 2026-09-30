@@ -56,7 +56,7 @@ export function SectionPage({
 
   const add = (
     <Button onClick={openNew}>
-      <Plus /> Add {def.singular.split(" ")[0] === "education" ? "education" : def.singular}
+      <Plus /> Add {def.singular}
     </Button>
   );
 
