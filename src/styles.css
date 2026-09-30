@@ -255,6 +255,27 @@
   animation: vault-arrive 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
+.selection-bar {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 280ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.selection-bar[data-visible="false"] {
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+@keyframes first-record-arrive {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.first-record-arrive {
+  animation: first-record-arrive 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
@@ -339,4 +360,11 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .selection-bar { transform: none !important; transition: opacity 180ms cubic-bezier(0.2, 0.8, 0.2, 1) !important; }
+  .first-record-arrive { animation: first-record-fade 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both !important; }
+}
+
+@keyframes first-record-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

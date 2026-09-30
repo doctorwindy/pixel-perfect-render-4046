@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { Copy, LogOut, MoreHorizontal, Search, ShieldCheck, X } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,14 +46,19 @@ function NavLink({ n, onNavigate, compact }: { n: NavDef; onNavigate?: () => voi
 
 function SelectionBar() {
   const v = useVault();
-  if (!v.selected.length) return null;
+  const count = v.selected.length;
+  const lastCount = useRef(count);
+  if (count) lastCount.current = count;
   return (
     <div
       role="region"
       aria-label="Selected fields"
-      className="glass-pop fixed inset-x-3 bottom-24 z-40 mx-auto flex max-w-md items-center gap-2 rounded-2xl p-2 pl-4 lg:bottom-6"
+      aria-hidden={!count}
+      inert={!count}
+      data-visible={count > 0}
+      className="glass-pop selection-bar fixed inset-x-3 bottom-24 z-40 mx-auto flex max-w-md items-center gap-2 rounded-2xl p-2 pl-4 lg:bottom-6"
     >
-      <span className="flex-1 text-sm font-semibold">{v.selected.length} selected</span>
+      <span className="flex-1 text-sm font-semibold">{count || lastCount.current} selected</span>
       <Button size="sm" onClick={() => v.copySelected()}>
         <Copy /> Copy
       </Button>
