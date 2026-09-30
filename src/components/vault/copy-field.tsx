@@ -20,7 +20,7 @@ export function IconAction({
   onClick: () => void;
   active?: boolean;
   children: ReactNode;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <button
@@ -48,8 +48,8 @@ export function CopyIconButton({
 }: {
   text: string;
   label: string;
-  itemKey?: string;
-  className?: string;
+  itemKey?: string | undefined;
+  className?: string | undefined;
 }) {
   const { copy } = useVault();
   const [done, setDone] = useState(false);

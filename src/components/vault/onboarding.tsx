@@ -25,7 +25,7 @@ export function OnboardingDialog() {
     setBusy(true);
     try {
       const trimmed = name.trim();
-      if (trimmed && !v.vault.profile.personal.full_name) await v.savePersonalField("full_name", trimmed);
+      if (trimmed && !v.vault.profile.personal["full_name"]) await v.savePersonalField("full_name", trimmed);
       await v.updateProfile({ display_name: trimmed.split(" ")[0] || "", onboarded: true });
       if (goPersonal) navigate({ to: "/personal" });
     } finally {

@@ -57,7 +57,7 @@ async function writeClipboard(text: string): Promise<boolean> {
 
 interface CopyOpts {
   label: string;
-  key?: string;
+  key?: string | undefined;
 }
 
 interface VaultApi {

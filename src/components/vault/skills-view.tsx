@@ -19,7 +19,7 @@ import { SectionPage, type RenderHelpers } from "./section-page";
 
 const def = SECTION_BY_ID.skills;
 
-const skillsOf = (r: VaultRecord) => ((r.data.skills as string[]) ?? []).filter(Boolean);
+const skillsOf = (r: VaultRecord) => ((r.data["skills"] as string[]) ?? []).filter(Boolean);
 
 function SkillChip({ group, skill }: { group: VaultRecord; skill: string }) {
   const { copy } = useVault();
