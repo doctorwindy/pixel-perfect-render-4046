@@ -94,7 +94,14 @@ export function Overview() {
               <button
                 key={k}
                 type="button"
-                onClick={() => v.copy(value, { label: field.label, key: makeKey("personal", null, k) })}
+                onClick={(e) =>
+                  v.copy(value, {
+                    label: field.label,
+                    key: makeKey("personal", null, k),
+                    from: e.currentTarget,
+                    sensitive: field.sensitive,
+                  })
+                }
                 className="bg-gloss-primary rounded-full px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:brightness-110 active:scale-95 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring"
               >
                 {field.label}

@@ -59,7 +59,7 @@ function SelectionBar() {
       className="glass-pop selection-bar fixed inset-x-3 bottom-24 z-40 mx-auto flex max-w-md items-center gap-2 rounded-2xl p-2 pl-4 lg:bottom-6"
     >
       <span className="flex-1 text-sm font-semibold">{count || lastCount.current} selected</span>
-      <Button size="sm" onClick={() => v.copySelected()}>
+      <Button size="sm" onClick={(e) => v.copySelected(e.currentTarget)}>
         <Copy /> Copy
       </Button>
       <Button size="icon" variant="ghost" aria-label="Clear selection" className="h-9 w-9" onClick={v.clearSelection}>

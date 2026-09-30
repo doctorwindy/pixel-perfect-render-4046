@@ -11,6 +11,7 @@ import {
 } from "react";
 import { toast } from "sonner";
 import type { User } from "@supabase/supabase-js";
+import { ClipboardTray, type CopyEvent } from "@/components/vault/clipboard-tray";
 import {
   clearHistory as clearHistoryRemote,
   deleteRecord as deleteRecordRemote,
@@ -58,6 +59,10 @@ async function writeClipboard(text: string): Promise<boolean> {
 interface CopyOpts {
   label: string;
   key?: string | undefined;
+  /** Element the copy started from; the copied value flies out of it. */
+  from?: Element | null | undefined;
+  /** Sensitive values are never previewed on screen. */
+  sensitive?: boolean | undefined;
 }
 
 interface VaultApi {
@@ -72,7 +77,7 @@ interface VaultApi {
   isSelected: (key: string) => boolean;
   toggleSelect: (key: string) => void;
   clearSelection: () => void;
-  copySelected: () => Promise<void>;
+  copySelected: (from?: Element | null) => Promise<void>;
   isRevealed: (key: string) => boolean;
   toggleReveal: (key: string) => void;
   saveRecord: (section: RecordSectionId, id: string | null, data: RecordData) => Promise<void>;
@@ -157,6 +162,8 @@ function Inner({
   const [revealed, setRevealed] = useState<Record<string, number>>({});
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [manual, setManual] = useState<string | null>(null);
+  const [copyEvent, setCopyEvent] = useState<CopyEvent | null>(null);
+  const copyCount = useRef(0);
   const vaultRef = useRef(vault);
   vaultRef.current = vault;
 
@@ -167,13 +174,20 @@ function Inner({
   const refresh = useCallback(() => qc.invalidateQueries({ queryKey: key }), [qc, key]);
 
   const copy = useCallback<VaultApi["copy"]>(
-    async (text, { label, key: itemKey }) => {
+    async (text, { label, key: itemKey, from, sensitive }) => {
       const ok = await writeClipboard(text);
       if (!ok) {
         setManual(text);
         return false;
       }
-      toast.success(`Copied ${label}`, { duration: 1800 });
+      // Only single fields get a preview, and never sensitive ones.
+      const preview = !itemKey
+        ? ""
+        : sensitive
+          ? "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
+          : text.replace(/\s+/g, " ").trim().slice(0, 40);
+      copyCount.current += 1;
+      setCopyEvent({ id: copyCount.current, label, preview, from: from ?? null });
       if (itemKey && vaultRef.current.profile.settings.historyEnabled) {
         patchCache((v) => ({
           ...v,
@@ -210,11 +224,11 @@ function Inner({
   );
   const clearSelection = useCallback(() => setSelected([]), []);
 
-  const copySelected = useCallback(async () => {
+  const copySelected = useCallback(async (from?: Element | null) => {
     const chosen = selected.map((k) => itemMap.get(k)).filter((i): i is FlatItem => !!i);
     if (!chosen.length) return;
     const text = formatItems(chosen, vault.profile.settings.multiCopyFormat);
-    const ok = await copy(text, { label: `${chosen.length} fields` });
+    const ok = await copy(text, { label: `${chosen.length} fields`, from });
     if (ok) setSelected([]);
   }, [selected, itemMap, vault.profile.settings.multiCopyFormat, copy]);
 
@@ -319,6 +333,7 @@ function Inner({
   return (
     <Ctx.Provider value={api}>
       {children}
+      <ClipboardTray event={copyEvent} />
       <ManualCopy text={manual} onClose={() => setManual(null)} />
     </Ctx.Provider>
   );

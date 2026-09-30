@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { canMorph, morphClose, morphOpen } from "@/lib/morph";
 import { type RecordData, type RecordSectionDef } from "@/lib/schema";
 import { recordMatches, type VaultRecord } from "@/lib/vault-utils";
 import { useVault } from "@/lib/vault-context";
@@ -46,13 +47,30 @@ export function SectionPage({
     [records, def, q, filter, badgeField],
   );
 
+  const [morph, setMorph] = useState(false);
+  const cardFor = (id: string) =>
+    document.querySelector<HTMLElement>(`[data-record-id="${CSS.escape(id)}"]`);
+
   const openNew = () => {
+    setMorph(false);
     setEditing(null);
     setFormOpen(true);
   };
   const openEdit = (r: VaultRecord) => {
-    setEditing(r);
-    setFormOpen(true);
+    const card = cardFor(r.id);
+    const willMorph = !!card && canMorph();
+    morphOpen(card, () => {
+      setMorph(willMorph);
+      setEditing(r);
+      setFormOpen(true);
+    });
+  };
+  const changeFormOpen = (o: boolean) => {
+    if (o || !morph || !editing) {
+      setFormOpen(o);
+      return;
+    }
+    morphClose(cardFor(editing.id), () => setFormOpen(false));
   };
 
   const add = (
@@ -129,14 +147,14 @@ export function SectionPage({
       ) : visible.length === 0 ? (
         <p className="glass-slab p-8 text-center text-sm text-muted-foreground">Nothing matches your search.</p>
       ) : (
-        <div className={cn("grid gap-4", !renderRecord && "xl:grid-cols-2")}>
+        <div className={cn("grid grid-cols-1 gap-4", !renderRecord && "xl:grid-cols-2")}>
           {visible.map((r, index) =>
             renderRecord ? (
-              <div key={r.id} className={cn(animateFirstRecord && index === 0 && "first-record-arrive")}>
+              <div key={r.id} data-record-id={r.id} className={cn(animateFirstRecord && index === 0 && "first-record-arrive")}>
                 {renderRecord(r, { edit: () => openEdit(r), remove: () => setDeleting(r) })}
               </div>
             ) : (
-              <div key={r.id} className={cn(animateFirstRecord && index === 0 && "first-record-arrive")}>
+              <div key={r.id} data-record-id={r.id} className={cn(animateFirstRecord && index === 0 && "first-record-arrive")}>
                 <RecordCard
                   def={def}
                   record={r}
@@ -151,7 +169,8 @@ export function SectionPage({
 
       <RecordForm
         open={formOpen}
-        onOpenChange={setFormOpen}
+        onOpenChange={changeFormOpen}
+        morph={morph}
         title={editing ? `Edit ${def.singular}` : `New ${def.singular}`}
         fields={def.fields}
         initial={editing?.data ?? null}

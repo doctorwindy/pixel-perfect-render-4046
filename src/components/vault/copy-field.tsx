@@ -1,5 +1,5 @@
 import { Check, Copy, Eye, EyeOff, Pencil, Star, X } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useState, type MouseEvent, type ReactNode } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,7 +18,7 @@ export function IconAction({
   className,
 }: {
   label: string;
-  onClick: () => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   active?: boolean;
   children: ReactNode;
   className?: string | undefined;
@@ -47,11 +47,13 @@ export function CopyIconButton({
   text,
   label,
   itemKey,
+  sensitive,
   className,
 }: {
   text: string;
   label: string;
   itemKey?: string | undefined;
+  sensitive?: boolean | undefined;
   className?: string | undefined;
 }) {
   const { copy } = useVault();
@@ -60,8 +62,8 @@ export function CopyIconButton({
     <IconAction
       label={`Copy ${label}`}
       className={className}
-      onClick={async () => {
-        if (await copy(text, { label, key: itemKey })) {
+      onClick={async (e) => {
+        if (await copy(text, { label, key: itemKey, from: e.currentTarget, sensitive })) {
           setDone(true);
           setTimeout(() => setDone(false), 1400);
         }
@@ -274,7 +276,7 @@ export function CopyField({
           >
             <Star className={cn("h-4 w-4", fav && "fill-current text-tint-orange")} />
           </IconAction>
-          <CopyIconButton text={text} label={def.label} itemKey={key} />
+          <CopyIconButton text={text} label={def.label} itemKey={key} sensitive={def.sensitive} />
         </div>
       ) : null}
     </div>
