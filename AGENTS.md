@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 <!-- App interaction decision: Keep press feedback and reduced-motion/transparency handling in shared design tokens and controls, so every InfoVault screen responds consistently without duplicating motion rules. -->
+<!-- Mobile navigation decision: Use the existing Vaul drawer for More sections so dismissal tracks touch position and release velocity rather than a fixed sheet animation. -->

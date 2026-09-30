@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { supabase } from "@/integrations/supabase/client";
 import { NAV, type NavDef } from "@/lib/schema";
 import { applyTheme } from "@/lib/theme";
@@ -33,7 +33,7 @@ function NavLink({ n, onNavigate, compact }: { n: NavDef; onNavigate?: () => voi
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex items-center gap-3 rounded-xl px-2.5 py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring",
+        "flex items-center gap-3 rounded-xl px-2.5 py-2 text-sm font-medium active:scale-[0.97] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring",
         active ? "glass-nav-active text-primary" : "text-foreground/80 hover:bg-accent",
         compact && "flex-col gap-1 px-1 py-1.5 text-[11px]",
       )}
@@ -189,18 +189,18 @@ export function AppShell({ children }: { children: ReactNode }) {
         </Button>
       </nav>
 
-      <Sheet open={more} onOpenChange={setMore}>
-        <SheetContent side="bottom" className="rounded-t-3xl">
-          <SheetHeader>
-            <SheetTitle>More sections</SheetTitle>
-          </SheetHeader>
+      <Drawer open={more} onOpenChange={setMore} shouldScaleBackground={false}>
+        <DrawerContent className="glass-pop rounded-t-3xl px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+          <DrawerHeader>
+            <DrawerTitle>More sections</DrawerTitle>
+          </DrawerHeader>
           <div className="mt-4 grid grid-cols-2 gap-1">
             {rest.map((n) => (
               <NavLink key={n.id} n={n} onNavigate={() => setMore(false)} />
             ))}
           </div>
-        </SheetContent>
-      </Sheet>
+        </DrawerContent>
+      </Drawer>
 
       <SelectionBar />
       <CommandPalette />
