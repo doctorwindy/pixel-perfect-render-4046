@@ -426,6 +426,7 @@
   bottom: calc(6rem + env(safe-area-inset-bottom));
   z-index: 55;
   display: flex;
+  width: max-content;
   max-width: min(20rem, calc(100vw - 1.5rem));
   align-items: center;
   gap: 0.75rem;
@@ -483,13 +484,13 @@ body:has(.selection-bar[data-visible="true"]) .clipboard-tray { bottom: calc(10.
   animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
   overflow: clip;
   border-radius: 1.25rem;
+  /* A solid surface grows from card to dialog while the content inside swaps,
+     so nothing stretched is ever left on screen. */
+  background: var(--card);
 }
 ::view-transition-image-pair(record-morph) {
   isolation: auto;
 }
-/* Snapshots keep their natural size and are cropped by the growing surface, so
-   text is never stretched. The outgoing surface stays opaque while the
-   incoming one fades in on top, so the glass never dips transparent. */
 ::view-transition-old(record-morph),
 ::view-transition-new(record-morph) {
   width: 100%;
@@ -498,13 +499,19 @@ body:has(.selection-bar[data-visible="true"]) .clipboard-tray { bottom: calc(10.
   object-position: top left;
   mix-blend-mode: normal;
 }
-::view-transition-old(record-morph) { animation: none; }
+::view-transition-old(record-morph) {
+  animation: morph-out 160ms cubic-bezier(0.4, 0, 1, 1) both;
+}
 ::view-transition-new(record-morph) {
-  animation: morph-in 440ms cubic-bezier(0.4, 0, 0.6, 1) both;
+  animation: morph-in 260ms cubic-bezier(0, 0, 0.2, 1) 140ms both;
 }
 @keyframes morph-in {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+@keyframes morph-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 ::view-transition-group(root) { animation-duration: 240ms; }
 
