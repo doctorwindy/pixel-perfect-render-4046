@@ -1,6 +1,7 @@
 import { Check, Copy, Eye, EyeOff, Pencil, Star, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
@@ -23,8 +24,10 @@ export function IconAction({
   className?: string | undefined;
 }) {
   return (
-    <button
+    <Button
       type="button"
+      variant="ghost"
+      size="icon"
       aria-label={label}
       title={label}
       aria-pressed={active}
@@ -36,7 +39,7 @@ export function IconAction({
       )}
     >
       {children}
-    </button>
+    </Button>
   );
 }
 
@@ -228,13 +231,14 @@ export function CopyField({
             </div>
           ) : empty ? (
             editable ? (
-              <button
+              <Button
                 type="button"
+                variant="link"
                 onClick={startEdit}
-                className="text-muted-foreground/70 hover:text-primary"
+                className="h-auto p-0 font-normal text-muted-foreground/70 hover:text-primary"
               >
                 Add {def.label.toLowerCase()}
-              </button>
+              </Button>
             ) : (
               <span className="text-muted-foreground/60">—</span>
             )

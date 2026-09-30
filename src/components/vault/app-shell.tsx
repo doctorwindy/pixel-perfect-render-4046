@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { supabase } from "@/integrations/supabase/client";
 import { NAV, type NavDef } from "@/lib/schema";
 import { applyTheme } from "@/lib/theme";
@@ -33,8 +33,8 @@ function NavLink({ n, onNavigate, compact }: { n: NavDef; onNavigate?: () => voi
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex items-center gap-3 rounded-xl px-2.5 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring",
-        active ? "bg-primary/12 text-primary" : "text-foreground/80 hover:bg-accent",
+        "flex items-center gap-3 rounded-xl px-2.5 py-2 text-sm font-medium active:scale-[0.97] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring",
+        active ? "glass-nav-active text-primary" : "text-foreground/80 hover:bg-accent",
         compact && "flex-col gap-1 px-1 py-1.5 text-[11px]",
       )}
     >
@@ -128,26 +128,29 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
             <span className="font-bold text-heading">InfoVault</span>
           </Link>
-          <button
+          <Button
             type="button"
             onClick={() => v.setPaletteOpen(true)}
-            className="ml-auto flex h-10 w-full max-w-md items-center gap-2 rounded-lg bg-card/70 px-3 text-sm text-muted-foreground shadow-inset-input hover:text-foreground focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring lg:ml-0"
+            variant="ghost"
+            className="ml-auto flex h-10 w-full max-w-md items-center gap-2 rounded-lg bg-card/70 px-3 text-sm font-normal text-muted-foreground shadow-inset-input hover:text-foreground lg:ml-0"
             aria-label="Search everything"
           >
             <Search className="h-4 w-4" />
             <span className="flex-1 text-left">Search everything</span>
             <kbd className="hidden rounded-md bg-muted px-1.5 py-0.5 text-[11px] font-medium sm:inline">⌘K</kbd>
-          </button>
+          </Button>
           <div className="hidden flex-1 lg:block" />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button
+              <Button
                 type="button"
                 aria-label="Account menu"
-                className="tint-tile inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-tint-indigo text-sm font-bold focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring"
+                variant="ghost"
+                size="icon"
+                className="tint-tile inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-tint-indigo text-sm font-bold"
               >
                 {name.slice(0, 1).toUpperCase()}
-              </button>
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel className="truncate">{v.user.email}</DropdownMenuLabel>
@@ -160,7 +163,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </DropdownMenu>
         </div>
 
-        <main id="main" className="mx-auto max-w-5xl px-4 pb-32 pt-6 lg:px-8 lg:pb-16 lg:pt-8">
+        <main id="main" key={pathname} className="vault-arrive mx-auto max-w-5xl px-4 pb-32 pt-6 lg:px-8 lg:pb-16 lg:pt-8">
           {children}
         </main>
       </div>
@@ -172,30 +175,32 @@ export function AppShell({ children }: { children: ReactNode }) {
         {primary.map((n) => (
           <NavLink key={n.id} n={n} compact />
         ))}
-        <button
+        <Button
           type="button"
           onClick={() => setMore(true)}
-          className="flex flex-col items-center gap-1 rounded-xl px-1 py-1.5 text-[11px] font-medium text-foreground/80"
+          variant="ghost"
+          aria-label="More sections"
+          className="flex h-auto flex-col items-center gap-1 rounded-xl px-1 py-1.5 text-[11px] font-medium text-foreground/80"
         >
           <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
             <MoreHorizontal className="h-4 w-4" />
           </span>
           More
-        </button>
+        </Button>
       </nav>
 
-      <Sheet open={more} onOpenChange={setMore}>
-        <SheetContent side="bottom" className="rounded-t-3xl">
-          <SheetHeader>
-            <SheetTitle>More sections</SheetTitle>
-          </SheetHeader>
+      <Drawer open={more} onOpenChange={setMore} shouldScaleBackground={false}>
+        <DrawerContent className="glass-pop rounded-t-3xl px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+          <DrawerHeader>
+            <DrawerTitle>More sections</DrawerTitle>
+          </DrawerHeader>
           <div className="mt-4 grid grid-cols-2 gap-1">
             {rest.map((n) => (
               <NavLink key={n.id} n={n} onNavigate={() => setMore(false)} />
             ))}
           </div>
-        </SheetContent>
-      </Sheet>
+        </DrawerContent>
+      </Drawer>
 
       <SelectionBar />
       <CommandPalette />
