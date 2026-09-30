@@ -85,7 +85,7 @@ export function Overview() {
       />
 
       <section className="glass-slab p-5" aria-labelledby="quick-copy">
-        <h2 id="quick-copy" className="mb-3 text-sm font-semibold text-muted-foreground">
+        <h2 id="quick-copy" className="mb-4 text-xl font-bold tracking-[-0.02em] text-heading">
           Quick copy
         </h2>
         <div className="flex flex-wrap gap-2">
@@ -95,7 +95,7 @@ export function Overview() {
                 key={k}
                 type="button"
                 onClick={() => v.copy(value, { label: field.label, key: makeKey("personal", null, k) })}
-                className="rounded-full bg-card/80 px-4 py-2 text-sm font-medium shadow-sm transition-all hover:bg-primary/10 hover:text-primary active:scale-95 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring"
+                className="bg-gloss-primary rounded-full px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:brightness-110 active:scale-95 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring"
               >
                 {field.label}
               </button>
@@ -118,7 +118,7 @@ export function Overview() {
             <h2 id="complete" className="text-sm font-semibold text-muted-foreground">
               Profile completeness
             </h2>
-            <span className="text-2xl font-bold text-heading">{pct}%</span>
+            <span className="text-5xl font-extrabold tabular-nums tracking-[-0.03em] text-primary">{pct}%</span>
           </div>
           <Progress value={pct} className="mt-3 h-2.5" aria-label="Profile completeness" />
           {missing.length ? (

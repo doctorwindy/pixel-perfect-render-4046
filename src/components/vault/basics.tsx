@@ -51,12 +51,18 @@ export function PageHeader({
   tint?: Tint;
 }) {
   return (
-    <header className="mb-6 flex flex-wrap items-end justify-between gap-3">
-      <div className="flex items-center gap-3">
-        {icon && tint ? <SectionIcon icon={icon} tint={tint} size="lg" /> : null}
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-heading">{title}</h1>
-          {description ? <p className="mt-0.5 text-sm text-muted-foreground">{description}</p> : null}
+    <header className="mb-8 flex flex-wrap items-end justify-between gap-4 pt-2">
+      <div className="flex items-center gap-4">
+        {icon && tint ? (
+          <SectionIcon icon={icon} tint={tint} size="lg" className="h-14 w-14 sm:h-16 sm:w-16 [&>svg]:h-7 [&>svg]:w-7 sm:[&>svg]:h-8 sm:[&>svg]:w-8" />
+        ) : null}
+        <div className="min-w-0">
+          <h1 className="text-balance text-4xl font-extrabold leading-[1.05] tracking-[-0.03em] text-heading sm:text-5xl">
+            {title}
+          </h1>
+          {description ? (
+            <p className="mt-2 max-w-prose text-base text-muted-foreground">{description}</p>
+          ) : null}
         </div>
       </div>
       {actions ? (
