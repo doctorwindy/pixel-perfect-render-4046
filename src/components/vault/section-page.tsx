@@ -32,6 +32,7 @@ export function SectionPage({
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<VaultRecord | null>(null);
   const [deleting, setDeleting] = useState<VaultRecord | null>(null);
+  const [animateFirstRecord, setAnimateFirstRecord] = useState(false);
 
   const badgeField = def.badgeKey ? def.fields.find((f) => f.key === def.badgeKey) : undefined;
 
@@ -127,19 +128,20 @@ export function SectionPage({
         <p className="glass-slab p-8 text-center text-sm text-muted-foreground">Nothing matches your search.</p>
       ) : (
         <div className={cn("grid gap-4", !renderRecord && "xl:grid-cols-2")}>
-          {visible.map((r) =>
+          {visible.map((r, index) =>
             renderRecord ? (
-              <div key={r.id}>
+              <div key={r.id} className={cn(animateFirstRecord && index === 0 && "first-record-arrive")}>
                 {renderRecord(r, { edit: () => openEdit(r), remove: () => setDeleting(r) })}
               </div>
             ) : (
-              <RecordCard
-                key={r.id}
-                def={def}
-                record={r}
-                onEdit={() => openEdit(r)}
-                onDelete={() => setDeleting(r)}
-              />
+              <div key={r.id} className={cn(animateFirstRecord && index === 0 && "first-record-arrive")}>
+                <RecordCard
+                  def={def}
+                  record={r}
+                  onEdit={() => openEdit(r)}
+                  onDelete={() => setDeleting(r)}
+                />
+              </div>
             ),
           )}
         </div>
@@ -152,7 +154,14 @@ export function SectionPage({
         fields={def.fields}
         initial={editing?.data ?? null}
         onSubmit={async (data: RecordData) => {
-          await v.saveRecord(def.id, editing?.id ?? null, data);
+          const isFirst = !editing && records.length === 0;
+          if (isFirst) setAnimateFirstRecord(true);
+          try {
+            await v.saveRecord(def.id, editing?.id ?? null, data);
+          } catch (error) {
+            if (isFirst) setAnimateFirstRecord(false);
+            throw error;
+          }
           toast.success("Saved");
         }}
       />
