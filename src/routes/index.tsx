@@ -46,7 +46,7 @@ function Landing() {
           <span className="tint-tile inline-flex h-9 w-9 items-center justify-center rounded-xl bg-tint-blue">
             <ShieldCheck className="h-5 w-5" />
           </span>
-          <span className="text-lg font-bold tracking-tight text-heading">InfoVault</span>
+          <span className="text-lg font-bold tracking-[-0.02em] text-heading">InfoVault</span>
         </div>
         <Button asChild variant="secondary">
           <Link to="/auth">Sign in</Link>
@@ -54,7 +54,7 @@ function Landing() {
       </header>
 
       <main className="flex flex-1 flex-col items-center justify-center py-16 text-center">
-        <h1 className="max-w-2xl text-5xl font-bold tracking-tight text-heading sm:text-6xl">
+        <h1 className="max-w-2xl text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-heading sm:text-6xl">
           Stop retyping yourself.
         </h1>
         <p className="mt-4 max-w-xl text-lg text-muted-foreground">

@@ -91,7 +91,7 @@ function AuthPage() {
           <span className="tint-tile mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-tint-blue">
             <ShieldCheck className="h-7 w-7" />
           </span>
-          <h1 className="text-2xl font-bold tracking-tight text-heading">
+          <h1 className="text-2xl font-bold tracking-[-0.02em] text-heading">
             {sent ? "Check your email" : mode === "in" ? "Welcome back" : "Create your vault"}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
