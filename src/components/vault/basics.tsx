@@ -59,7 +59,9 @@ export function PageHeader({
           {description ? <p className="mt-0.5 text-sm text-muted-foreground">{description}</p> : null}
         </div>
       </div>
-      {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
+      {actions ? (
+        <div className="flex flex-wrap items-center gap-2 max-sm:w-full max-sm:[&>*]:flex-1">{actions}</div>
+      ) : null}
     </header>
   );
 }
