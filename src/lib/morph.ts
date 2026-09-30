@@ -24,7 +24,9 @@ export function canMorph(): boolean {
   return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-const nextFrame = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+// Rendering is paused while the new state is captured, so requestAnimationFrame
+// would never fire here; a short timer lets effects settle instead.
+const settle = () => new Promise<void>((resolve) => setTimeout(resolve, 24));
 
 function clear(el: HTMLElement) {
   el.style.removeProperty("view-transition-name");
@@ -42,7 +44,7 @@ export function morphOpen(card: HTMLElement | null, update: () => void): void {
   const vt = start(async () => {
     clear(card);
     flushSync(update);
-    await nextFrame();
+    await settle();
   });
   vt.finished.catch(() => undefined).finally(() => {
     busy = false;
@@ -61,7 +63,7 @@ export function morphClose(card: HTMLElement | null, update: () => void): void {
   const vt = start(async () => {
     flushSync(update);
     card.style.setProperty("view-transition-name", NAME);
-    await nextFrame();
+    await settle();
   });
   vt.finished.catch(() => undefined).finally(() => {
     busy = false;
