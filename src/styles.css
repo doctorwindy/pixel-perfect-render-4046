@@ -481,17 +481,21 @@ body:has(.selection-bar[data-visible="true"]) .clipboard-tray { bottom: calc(10.
 ::view-transition-group(record-morph) {
   animation-duration: 440ms;
   animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: clip;
+  border-radius: 1.25rem;
 }
 ::view-transition-image-pair(record-morph) {
   isolation: auto;
 }
-/* The outgoing surface stays opaque; the incoming one fades in on top, so
-   the glass never dips transparent mid-flight. */
+/* Snapshots keep their natural size and are cropped by the growing surface, so
+   text is never stretched. The outgoing surface stays opaque while the
+   incoming one fades in on top, so the glass never dips transparent. */
 ::view-transition-old(record-morph),
 ::view-transition-new(record-morph) {
+  width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: none;
+  object-position: top left;
   mix-blend-mode: normal;
 }
 ::view-transition-old(record-morph) { animation: none; }
