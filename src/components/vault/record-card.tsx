@@ -90,7 +90,7 @@ export function RecordCard({
       <header className="flex items-start gap-3 px-3 pb-2 pt-3">
         <SectionIcon icon={def.icon} tint={def.tint} size="sm" />
         <div className="min-w-0 flex-1">
-          <h3 className="truncate text-base font-semibold text-heading">{title}</h3>
+          <h3 className="type-card-title truncate text-heading">{title}</h3>
           {subtitle ? <p className="truncate text-sm text-muted-foreground">{subtitle}</p> : null}
         </div>
         {badgeField && badgeField.options ? (

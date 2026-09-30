@@ -22,14 +22,14 @@ function Row({ item, onUnstar, meta }: { item: FlatItem; onUnstar?: () => void; 
         <div className="truncate text-sm font-medium">
           {item.label}
           {item.section !== "personal" ? (
-            <span className="ml-2 text-xs font-normal text-muted-foreground">{item.recordTitle}</span>
+            <span className="type-meta ml-2 font-normal text-muted-foreground">{item.recordTitle}</span>
           ) : null}
         </div>
-        <div className="truncate text-xs text-muted-foreground">
+        <div className="type-meta truncate text-muted-foreground">
           {item.sensitive ? maskValue(item.value) : item.value.replace(/\s+/g, " ")}
         </div>
       </div>
-      {meta ? <span className="shrink-0 text-[11px] text-muted-foreground">{meta}</span> : null}
+      {meta ? <span className="type-meta shrink-0 text-muted-foreground">{meta}</span> : null}
       {onUnstar ? (
         <IconAction label={`Remove ${item.label} from favorites`} active onClick={onUnstar}>
           <Star className="h-4 w-4 fill-current text-tint-orange" />
@@ -85,7 +85,7 @@ export function Overview() {
       />
 
       <section className="glass-slab p-5" aria-labelledby="quick-copy">
-        <h2 id="quick-copy" className="mb-4 text-xl font-bold tracking-[-0.02em] text-heading">
+        <h2 id="quick-copy" className="mb-4 type-section text-heading">
           Quick copy
         </h2>
         <div className="flex flex-wrap gap-2">

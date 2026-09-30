@@ -193,8 +193,8 @@ export function CopyField({
         <span className="w-4 shrink-0" />
       )}
       <div className="min-w-0 flex-1">
-        <div className="text-xs font-medium text-muted-foreground">{def.label}</div>
-        <div className="mt-0.5 text-sm text-foreground">
+        <div className="type-label text-muted-foreground">{def.label}</div>
+        <div className="type-value mt-0.5 text-foreground">
           {editing ? (
             <div className="flex items-start gap-1.5">
               {def.type === "textarea" ? (
@@ -243,7 +243,7 @@ export function CopyField({
               <span className="text-muted-foreground/60">—</span>
             )
           ) : masked ? (
-            <span className="tracking-widest text-muted-foreground" aria-label="Hidden value">
+            <span className="tracking-[0.2em] text-muted-foreground" aria-label="Hidden value">
               {maskValue(text)}
             </span>
           ) : (

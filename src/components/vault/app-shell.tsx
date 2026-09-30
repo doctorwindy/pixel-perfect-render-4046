@@ -35,7 +35,7 @@ function NavLink({ n, onNavigate, compact }: { n: NavDef; onNavigate?: () => voi
       className={cn(
         "flex items-center gap-3 rounded-xl px-2.5 py-2 text-sm font-medium active:scale-[0.97] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring",
         active ? "glass-nav-active text-primary" : "text-foreground/80 hover:bg-accent",
-        compact && "flex-col gap-1 px-1 py-1.5 text-[11px]",
+        compact && "flex-col gap-1 px-1 py-1.5 text-xs",
       )}
     >
       <SectionIcon icon={n.icon} tint={n.tint} size="sm" className={compact ? "h-7 w-7" : ""} />
@@ -115,7 +115,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="tint-tile inline-flex h-9 w-9 items-center justify-center rounded-xl bg-tint-blue">
             <ShieldCheck className="h-5 w-5" />
           </span>
-          <span className="text-lg font-bold tracking-tight text-heading">InfoVault</span>
+          <span className="text-lg font-bold tracking-[-0.02em] text-heading">InfoVault</span>
         </Link>
         <nav aria-label="Sections" className="flex-1 space-y-0.5 overflow-y-auto">
           {NAV.map((n) => (
@@ -142,7 +142,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             <Search className="h-4 w-4" />
             <span className="flex-1 text-left">Search everything</span>
-            <kbd className="hidden rounded-md bg-muted px-1.5 py-0.5 text-[11px] font-medium sm:inline">⌘K</kbd>
+            <kbd className="hidden rounded-md bg-muted px-1.5 py-0.5 text-xs font-medium sm:inline">⌘K</kbd>
           </Button>
           <div className="hidden flex-1 lg:block" />
           <DropdownMenu>
@@ -185,7 +185,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           onClick={() => setMore(true)}
           variant="ghost"
           aria-label="More sections"
-          className="flex h-auto flex-col items-center gap-1 rounded-xl px-1 py-1.5 text-[11px] font-medium text-foreground/80"
+          className="flex h-auto flex-col items-center gap-1 rounded-xl px-1 py-1.5 text-xs font-medium text-foreground/80"
         >
           <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
             <MoreHorizontal className="h-4 w-4" />
