@@ -36,7 +36,17 @@ A private, account-based hub where you store your personal, academic and profess
 
 ## Design
 
-Calm, dense, productivity-first: Linear/Notion/Raycast feel. Sidebar plus content on desktop, collapsible on tablet, bottom navigation on mobile with large tap targets. Strong type, generous spacing, minimal decoration, light and dark themes, reduced-motion support.
+Apple "Liquid Glass" iOS aesthetic: spacious, breathable, premium and polished. Sidebar plus content on desktop, collapsible on tablet, bottom navigation on mobile with large tap targets. Light and dark themes, reduced-motion support.
+
+- Colors: soft silver-white page background (#F2F2F7), pure white surfaces (#FFFFFF), vibrant blue accent (#007AFF). Headings bold black (#000000), body text deep gray (#3C3C43). Dark theme gets matching iOS-style equivalents (near-black background, elevated dark-gray glass surfaces, same blue).
+- Type: SF Pro via the system Apple font stack (SF Pro on Apple devices, clean system fallback elsewhere). Large bold page titles, clear hierarchy.
+- Shape: 20px corner radius on cards and containers, 12px on buttons and inputs.
+- Buttons: solid glossy pills with a subtle top-to-bottom gradient; blue primary, soft gray secondary.
+- Cards: thick glass slabs with a soft ambient shadow and a very thin light-gray border; subtle translucency and blur on the sidebar, top bar, command palette and dialogs.
+- Top bar: clean white with large titles.
+- Inputs: rounded rectangles with a subtle inset feel.
+- Icons: rounded and colorful, with a distinct tint per section (Personal, Education, Tests, etc.).
+- All colors, gradients, radii and shadows live as semantic design tokens in the global stylesheet; no hardcoded colors in components.
 
 ## Technical notes
 
@@ -49,7 +59,7 @@ Calm, dense, productivity-first: Linear/Notion/Raycast feel. Sidebar plus conten
 
 ## Build order
 
-1. Enable Cloud, auth pages, protected app shell, navigation, theme
+1. Enable Cloud, auth pages, protected app shell, navigation, theme and Liquid Glass design tokens
 2. Database schema + data service layer + settings/export/import
 3. Copy system, favorites, copy history, command palette and global search
 4. Personal, Education, Tests, Skills
