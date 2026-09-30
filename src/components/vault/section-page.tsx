@@ -147,7 +147,7 @@ export function SectionPage({
       ) : visible.length === 0 ? (
         <p className="glass-slab p-8 text-center text-sm text-muted-foreground">Nothing matches your search.</p>
       ) : (
-        <div className={cn("grid gap-4", !renderRecord && "xl:grid-cols-2")}>
+        <div className={cn("grid grid-cols-1 gap-4", !renderRecord && "xl:grid-cols-2")}>
           {visible.map((r, index) =>
             renderRecord ? (
               <div key={r.id} data-record-id={r.id} className={cn(animateFirstRecord && index === 0 && "first-record-arrive")}>
