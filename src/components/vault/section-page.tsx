@@ -69,10 +69,12 @@ export function SectionPage({
         tint={def.tint}
         description={`${records.length} ${records.length === 1 ? "entry" : "entries"}`}
         actions={
+          records.length === 0 && !headerExtra ? undefined : (
           <>
             {headerExtra?.(records)}
-            {add}
+            {records.length > 0 ? add : null}
           </>
+          )
         }
       />
 

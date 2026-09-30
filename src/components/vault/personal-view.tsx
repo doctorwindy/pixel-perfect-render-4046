@@ -35,7 +35,7 @@ export function PersonalView() {
       <div className="space-y-5">
         {PERSONAL_GROUPS.map((g) => (
           <section key={g.id} className="glass-slab p-2" aria-labelledby={`pg-${g.id}`}>
-            <h2 id={`pg-${g.id}`} className="px-3 pb-1 pt-3 text-sm font-semibold text-muted-foreground">
+            <h2 id={`pg-${g.id}`} className="pb-1 pl-9 pr-3 pt-3 text-sm font-semibold text-muted-foreground">
               {g.label}
             </h2>
             <div className="grid sm:grid-cols-2">
