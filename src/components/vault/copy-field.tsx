@@ -4,8 +4,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { isEmptyValue, makeKeyFor, type FieldDef, type SectionId } from "@/lib/schema-keys";
-import { maskValue, valueToString } from "@/lib/vault-utils";
+import { isEmptyValue, type FieldDef, type SectionId } from "@/lib/schema";
+import { makeKey, maskValue, valueToString } from "@/lib/vault-utils";
 import { useVault } from "@/lib/vault-context";
 import { StatusBadge, Tag } from "./basics";
 
@@ -138,7 +138,7 @@ export function CopyField({
   editable?: boolean;
 }) {
   const v = useVault();
-  const key = makeKeyFor(section, recordId, def.key);
+  const key = makeKey(section, recordId, def.key);
   const empty = isEmptyValue(value);
   const text = valueToString(def, value);
   const masked = !!def.sensitive && !empty && !v.isRevealed(key);
