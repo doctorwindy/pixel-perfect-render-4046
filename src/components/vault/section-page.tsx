@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { morphClose, morphOpen } from "@/lib/morph";
+import { canMorph, morphClose, morphOpen } from "@/lib/morph";
 import { type RecordData, type RecordSectionDef } from "@/lib/schema";
 import { recordMatches, type VaultRecord } from "@/lib/vault-utils";
 import { useVault } from "@/lib/vault-context";
@@ -58,8 +58,9 @@ export function SectionPage({
   };
   const openEdit = (r: VaultRecord) => {
     const card = cardFor(r.id);
+    const willMorph = !!card && canMorph();
     morphOpen(card, () => {
-      setMorph(!!card && canMorphNow());
+      setMorph(willMorph);
       setEditing(r);
       setFormOpen(true);
     });
