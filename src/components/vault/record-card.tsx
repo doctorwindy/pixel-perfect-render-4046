@@ -73,8 +73,8 @@ export function RecordCard({
   const filled = def.fields.filter((f) => !isEmptyValue(record.data[f.key]));
   const fmt = v.vault.profile.settings.recordCopyFormat;
 
-  const copyAs = (format: RecordCopyFormat) =>
-    v.copy(formatRecord(def.fields, record.data, format, title), { label: title });
+  const copyAs = (format: RecordCopyFormat, from?: Element | null) =>
+    v.copy(formatRecord(def.fields, record.data, format, title), { label: title, from });
 
   const setBadge = async (value: string) => {
     try {
@@ -142,7 +142,7 @@ export function RecordCard({
       )}
 
       <footer className="flex items-center gap-2 px-3 pb-3 pt-2">
-        <Button size="sm" variant="secondary" onClick={() => copyAs(fmt)} disabled={!filled.length}>
+        <Button size="sm" variant="secondary" onClick={(e) => copyAs(fmt, e.currentTarget)} disabled={!filled.length}>
           <Copy /> Copy record
         </Button>
         <Button size="sm" variant="ghost" onClick={onEdit}>

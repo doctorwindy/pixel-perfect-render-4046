@@ -164,8 +164,11 @@ export function RecordForm({
   fields,
   initial,
   onSubmit,
+  morph,
 }: {
   open: boolean;
+  /** Dialog grows out of (and shrinks back into) the card it edits. */
+  morph?: boolean;
   onOpenChange: (o: boolean) => void;
   title: string;
   fields: FieldDef[];
@@ -210,7 +213,7 @@ export function RecordForm({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
+      <DialogContent className={cn("max-h-[90vh] overflow-y-auto sm:max-w-2xl", morph && "morph-dialog")}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>Fill in what you need. Empty fields are hidden on the card.</DialogDescription>

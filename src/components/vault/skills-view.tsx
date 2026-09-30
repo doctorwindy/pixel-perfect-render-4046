@@ -28,8 +28,9 @@ function SkillChip({ group, skill }: { group: VaultRecord; skill: string }) {
     <button
       type="button"
       title={`Copy ${skill}`}
-      onClick={async () => {
-        if (await copy(skill, { label: skill, key: makeKey("skills", group.id, `skill:${skill}`) })) {
+      onClick={async (e) => {
+        const from = e.currentTarget;
+        if (await copy(skill, { label: skill, key: makeKey("skills", group.id, `skill:${skill}`), from })) {
           setDone(true);
           setTimeout(() => setDone(false), 1000);
         }

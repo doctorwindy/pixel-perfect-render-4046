@@ -65,7 +65,7 @@ export function CommandPalette() {
 
   const run = (item: FlatItem) => {
     setOpen(false);
-    v.copy(item.value, { label: item.label === "Skill" ? item.value : item.label, key: item.key });
+    v.copy(item.value, { label: item.label === "Skill" ? item.value : item.label, key: item.key, sensitive: item.sensitive });
   };
 
   const row = (i: FlatItem, prefix: string) => (
