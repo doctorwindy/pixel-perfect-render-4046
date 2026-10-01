@@ -856,3 +856,9 @@ body:has(.selection-bar[data-visible="true"]) .clipboard-tray { bottom: calc(10.
   .depth-cube { animation: none; transform: rotateX(-20deg) rotateY(-30deg); }
   .depth-sheet, .depth-card { transition: none; }
 }
+
+.depth-art { filter: drop-shadow(0 24px 32px color-mix(in oklab, var(--primary) 22%, transparent)); animation: depth-float 6s ease-in-out infinite; }
+article:nth-child(2) .depth-art { animation-delay: -2s; }
+article:nth-child(3) .depth-art { animation-delay: -4s; }
+@keyframes depth-float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(-1.5deg); } }
+@media (prefers-reduced-motion: reduce) { .depth-art { animation: none; } }
