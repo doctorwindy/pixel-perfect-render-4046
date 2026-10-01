@@ -95,9 +95,10 @@ export function AppShell({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    await qc.cancelQueries();
     qc.clear();
-    navigate({ to: "/auth" });
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
   };
 
   const name = v.vault.profile.display_name || v.user.email?.split("@")[0] || "You";
