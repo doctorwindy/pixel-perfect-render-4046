@@ -90,7 +90,7 @@ export function CommandPalette() {
   );
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
+    <CommandDialog open={open} onOpenChange={setOpen} className="max-w-2xl">
       <CommandInput placeholder="Search everything you've saved…" />
       <CommandList className="max-h-[60vh]">
         <CommandEmpty>No matches. Try a different word.</CommandEmpty>
