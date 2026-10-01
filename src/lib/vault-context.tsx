@@ -12,6 +12,7 @@ import {
 import { toast } from "sonner";
 import type { User } from "@supabase/supabase-js";
 import { ClipboardTray, type CopyEvent } from "@/components/vault/clipboard-tray";
+import { VaultLoadingSkeleton } from "@/components/vault/loading-skeleton";
 import {
   clearHistory as clearHistoryRemote,
   deleteRecord as deleteRecordRemote,
@@ -109,7 +110,7 @@ export function VaultProvider({ user, children }: { user: User; children: ReactN
     staleTime: 60_000,
   });
 
-  if (q.isLoading) return <VaultSkeleton />;
+  if (q.isLoading) return <VaultLoadingSkeleton />;
   if (q.error || !q.data) {
     return (
       <div className="flex min-h-screen items-center justify-center p-6">
@@ -132,14 +133,6 @@ export function VaultProvider({ user, children }: { user: User; children: ReactN
     <Inner user={user} vault={q.data} qc={qc}>
       {children}
     </Inner>
-  );
-}
-
-function VaultSkeleton() {
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="glass-slab h-24 w-72 animate-pulse" aria-label="Loading your vault" />
-    </div>
   );
 }
 
