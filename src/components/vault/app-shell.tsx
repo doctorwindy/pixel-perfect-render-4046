@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { Copy, LogOut, MoreHorizontal, Search, ShieldCheck, X } from "lucide-react";
+import { Copy, LogOut, MoreHorizontal, Search, X } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,7 @@ import { applyTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 import { useVault } from "@/lib/vault-context";
 import { SectionIcon } from "./basics";
+import { BrandLogo } from "./brand-logo";
 import { CommandPalette } from "./command-palette";
 import { OnboardingDialog } from "./onboarding";
 
@@ -113,11 +114,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       </a>
 
       <aside className="glass-bar fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r p-4 lg:flex">
-        <Link to="/overview" className="mb-5 flex items-center gap-2.5 px-1.5">
-          <span className="tint-tile inline-flex h-9 w-9 items-center justify-center rounded-xl bg-tint-blue">
-            <ShieldCheck className="h-5 w-5" />
-          </span>
-          <span className="text-lg font-bold tracking-[-0.02em] text-heading">InfoVault</span>
+        <Link to="/overview" aria-label="InfoVault home" className="mb-5 block px-1.5">
+          <BrandLogo className="w-full" />
         </Link>
         <nav aria-label="Sections" className="flex-1 space-y-0.5 overflow-y-auto">
           {NAV.filter((n) => n.id !== "settings").map((n) => (
@@ -156,11 +154,8 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <div className="lg:pl-64">
         <div className="glass-bar sticky top-0 z-20 flex items-center gap-3 border-b px-5 py-2.5 md:px-8">
-          <Link to="/overview" className="flex items-center gap-2 lg:hidden">
-            <span className="tint-tile inline-flex h-8 w-8 items-center justify-center rounded-lg bg-tint-blue">
-              <ShieldCheck className="h-4 w-4" />
-            </span>
-            <span className="font-bold text-heading">InfoVault</span>
+          <Link to="/overview" aria-label="InfoVault home" className="w-28 shrink-0 sm:w-36 lg:hidden">
+            <BrandLogo className="w-full" />
           </Link>
           <div className="flex flex-1 justify-center">
             <Button

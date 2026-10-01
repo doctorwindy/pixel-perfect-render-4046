@@ -1,9 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ShieldCheck } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { BrandLogo } from "@/components/vault/brand-logo";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Toaster } from "@/components/ui/sonner";
@@ -88,9 +88,7 @@ function AuthPage() {
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="glass-slab w-full max-w-sm p-7">
         <div className="mb-6 flex flex-col items-center text-center">
-          <span className="tint-tile mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-tint-blue">
-            <ShieldCheck className="h-7 w-7" />
-          </span>
+          <BrandLogo className="mb-5 w-full max-w-60" />
           <h1 className="text-2xl font-bold tracking-[-0.02em] text-heading">
             {sent ? "Check your email" : mode === "in" ? "Welcome back" : "Create your vault"}
           </h1>

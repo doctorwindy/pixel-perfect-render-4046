@@ -1,7 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ClipboardCheck, Command, Lock, ShieldCheck } from "lucide-react";
+import { ClipboardCheck, Command, Lock } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { BrandLogo } from "@/components/vault/brand-logo";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
@@ -42,12 +43,7 @@ function Landing() {
   return (
     <div className="mx-auto flex min-h-screen max-w-4xl flex-col px-5 py-8">
       <header className="flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <span className="tint-tile inline-flex h-9 w-9 items-center justify-center rounded-xl bg-tint-blue">
-            <ShieldCheck className="h-5 w-5" />
-          </span>
-          <span className="text-lg font-bold tracking-[-0.02em] text-heading">InfoVault</span>
-        </div>
+        <BrandLogo className="w-40 sm:w-48" />
         <Button asChild variant="secondary">
           <Link to="/auth">Sign in</Link>
         </Button>

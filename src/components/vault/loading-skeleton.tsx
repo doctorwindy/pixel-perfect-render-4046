@@ -59,8 +59,7 @@ export function VaultLoadingSkeleton() {
     <div className="min-h-screen" role="status" aria-label="Loading your vault">
       <aside className="glass-bar fixed inset-y-0 left-0 hidden w-64 flex-col border-r p-4 lg:flex">
         <div className="mb-5 flex items-center gap-2.5 px-1.5">
-          <Bar className="h-9 w-9 rounded-xl" />
-          <Bar className="h-5 w-28" />
+          <Bar className="h-14 w-52 rounded-lg" />
         </div>
         <nav className="flex-1 space-y-0.5 overflow-hidden">
           {NAV.filter((n) => n.id !== "settings").map((n) => (
@@ -79,7 +78,7 @@ export function VaultLoadingSkeleton() {
       </aside>
       <div className="lg:pl-64">
         <div className="glass-bar sticky top-0 flex items-center gap-3 border-b px-5 py-2.5 md:px-8">
-          <Bar className="h-8 w-32 lg:hidden" />
+          <Bar className="h-9 w-28 lg:hidden" />
           <div className="flex flex-1 justify-center">
             <Bar className="h-10 w-full max-w-2xl rounded-lg" />
           </div>
