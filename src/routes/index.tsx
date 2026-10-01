@@ -21,6 +21,16 @@ import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/vault/brand-logo";
 import { SectionIcon } from "@/components/vault/basics";
 import { NAV } from "@/lib/schema";
+import {
+  HeroHeading,
+  HeroParallax,
+  KeyMarquee,
+  Magnetic,
+  ScrollProgress,
+  ScrubStatement,
+  VaultAccordion,
+  useDepthScenes,
+} from "@/components/landing/motion";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
@@ -315,6 +325,7 @@ function DepthObject({ kind }: { kind: (typeof DEPTH_ITEMS)[number]["kind"] }) {
 
 function DepthShowcase() {
   const ref = useRef<HTMLDivElement>(null);
+  useDepthScenes(ref);
   useEffect(() => {
     const items = document.querySelectorAll<HTMLElement>("[data-depth]");
     if (!items) return;
@@ -354,6 +365,7 @@ function Landing() {
 
   return (
     <div className="landing-page min-h-screen overflow-hidden">
+      <ScrollProgress />
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-card focus:px-4 focus:py-2 focus:text-foreground focus:shadow-glass">
         Skip to content
       </a>
@@ -374,26 +386,34 @@ function Landing() {
       <main id="main-content">
         <section className="landing-hero relative w-full overflow-x-clip mx-auto grid min-h-[calc(100dvh-5rem)] max-w-7xl grid-cols-1 items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:place-items-center lg:px-10 lg:pb-24 lg:pt-8">
           <div className="relative z-10 min-w-0 max-w-xl vault-arrive lg:max-w-4xl lg:text-center">
-            <h1 className="text-5xl font-bold leading-[1.02] text-heading sm:text-6xl lg:text-8xl">
-              Every detail. <span className="text-primary">Exactly where you need it.</span>
-            </h1>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl lg:mx-auto lg:max-w-2xl">
-              Keep the details you use across forms and applications in one organized place. Find them fast, then copy exactly what you need.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:justify-center">
-              <Button asChild size="lg">
-                <Link to="/auth">Get started free <ArrowRight /></Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary">
-                <a href="#how-it-works">See how it works</a>
-              </Button>
-            </div>
-            <p className="mt-5 text-sm text-muted-foreground">No payment details required. Your saved information stays tied to your account.</p>
+            <HeroParallax>
+              <HeroHeading className="text-5xl font-bold leading-[1.02] text-heading sm:text-6xl lg:text-8xl" />
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl lg:mx-auto lg:max-w-2xl">
+                Keep the details you use across forms and applications in one organized place. Find them fast, then copy exactly what you need.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:justify-center">
+                <Magnetic>
+                  <Button asChild size="lg">
+                    <Link to="/auth">Get started free <ArrowRight /></Link>
+                  </Button>
+                </Magnetic>
+                <Magnetic>
+                  <Button asChild size="lg" variant="secondary">
+                    <a href="#how-it-works">See how it works</a>
+                  </Button>
+                </Magnetic>
+              </div>
+              <p className="mt-5 text-sm text-muted-foreground">No payment details required. Your saved information stays tied to your account.</p>
+            </HeroParallax>
           </div>
           <div className="min-w-0 lg:hidden">
             <VaultPreview />
           </div>
         </section>
+
+        <KeyMarquee />
+
+        <ScrubStatement />
 
         <DepthShowcase />
 
@@ -433,6 +453,8 @@ function Landing() {
             ))}
           </ol>
         </section>
+
+        <VaultAccordion />
 
         <section className="pb-20 sm:pb-28">
           <div className="mx-auto grid max-w-7xl gap-6 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10">
