@@ -17,3 +17,4 @@
 <!-- Card morph decision: Use the browser View Transitions API (no library) to morph record cards into their edit dialog, skipped when unsupported or when reduced motion is requested. -->
 <!-- Navigation decision: Cache the validated user briefly and clear it on auth changes; prefetch section links on intent and avoid remount/fade on section changes so content switches promptly without stale flashes. -->
 <!-- Loading decision: Lazy-load section views while retaining intent preloading, and show shared shape-matched skeletons for auth, vault fetch, and route pending states; this keeps first load lighter and avoids showing stale sections while waiting. -->
+<!-- Brand asset decision: Keep the supplied horizontal logo and its dark-mode counterpart in one shared component, with the icon used only where a compact format is needed; this prevents mismatched branding across screens. -->

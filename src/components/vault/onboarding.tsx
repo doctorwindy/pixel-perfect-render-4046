@@ -1,5 +1,4 @@
 import { useNavigate } from "@tanstack/react-router";
-import { ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useVault } from "@/lib/vault-context";
+import { BrandLogo } from "./brand-logo";
 
 export function OnboardingDialog() {
   const v = useVault();
@@ -37,9 +37,7 @@ export function OnboardingDialog() {
     <Dialog open={open} onOpenChange={(o) => !o && !busy && finish(false)}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="items-center text-center sm:text-center">
-          <span className="tint-tile mb-2 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-tint-blue">
-            <ShieldCheck className="h-7 w-7" />
-          </span>
+          <BrandLogo compact className="mb-2 h-14 w-14" />
           <DialogTitle className="text-xl">Welcome to InfoVault</DialogTitle>
           <DialogDescription>
             Save your details once, then copy any field with a single click. Your vault is private to
