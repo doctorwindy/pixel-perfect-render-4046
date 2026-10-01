@@ -30,6 +30,8 @@ function NavLink({ n, onNavigate, compact }: { n: NavDef; onNavigate?: () => voi
   return (
     <Link
       to={n.path as "/overview"}
+      preload="intent"
+      preloadDelay={0}
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
@@ -168,7 +170,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </DropdownMenu>
         </div>
 
-        <main id="main" key={pathname} className="vault-arrive mx-auto max-w-5xl px-4 pb-32 pt-6 lg:px-8 lg:pb-16 lg:pt-8">
+        <main id="main" className="mx-auto max-w-5xl px-4 pb-32 pt-6 lg:px-8 lg:pb-16 lg:pt-8">
           {children}
         </main>
       </div>

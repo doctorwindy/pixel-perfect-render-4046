@@ -123,11 +123,12 @@ function RootComponent() {
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event) => {
       if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") {
+        queryClient.removeQueries({ queryKey: ["authenticated-user"] });
         router.invalidate();
       }
     });
     return () => data.subscription.unsubscribe();
-  }, [router]);
+  }, [router, queryClient]);
 
   return (
     <QueryClientProvider client={queryClient}>
