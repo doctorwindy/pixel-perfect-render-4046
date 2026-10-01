@@ -596,8 +596,8 @@
 @media (max-width: 767px) {
   .landing-hero::before { width: 34rem; right: -17rem; top: 72%; }
   .landing-hero-visual { min-height: 29rem; }
-  .vault-orbit-outer { width: 27rem; height: 27rem; }
-  .vault-orbit-inner { width: 22rem; height: 22rem; }
+  .vault-orbit-outer { width: min(27rem, 92vw); height: min(27rem, 92vw); }
+  .vault-orbit-inner { width: min(22rem, 78vw); height: min(22rem, 78vw); }
   .floating-record { display: none; }
   .floating-copy-path { left: 0.25rem; bottom: 1.2rem; }
 }
