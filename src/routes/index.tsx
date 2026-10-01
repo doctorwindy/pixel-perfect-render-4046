@@ -372,7 +372,7 @@ function Landing() {
       </header>
 
       <main id="main-content">
-        <section className="landing-hero relative w-full overflow-x-clip mx-auto grid grid-cols-1 items-center gap-14 px-5 pb-20 pt-10 sm:px-8 sm:pb-24 lg:min-h-[calc(100dvh-5rem)] lg:place-items-center lg:px-10 lg:pb-16 lg:pt-6 xl:min-h-[calc(100dvh-5rem)]">
+        <section className="landing-hero relative w-full overflow-x-clip mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 pb-20 pt-10 sm:px-8 sm:pb-24 lg:place-items-center lg:px-10 lg:pb-16 lg:pt-6">
           <div className="relative z-10 min-w-0 max-w-xl vault-arrive lg:max-w-4xl lg:text-center">
             <h1 className="text-5xl font-bold leading-[1.02] text-heading sm:text-6xl lg:text-8xl">
               Every detail. <span className="text-primary">Exactly where you need it.</span>
