@@ -93,7 +93,7 @@ interface VaultApi {
 }
 
 // Keep one context instance across hot reloads so provider and consumers always match.
-const g = globalThis as unknown as { __infovaultCtx?: React.Context<VaultApi | null> };
+const g = globalThis as unknown as { __infovaultCtx?: import("react").Context<VaultApi | null> };
 const Ctx = (g.__infovaultCtx ??= createContext<VaultApi | null>(null));
 
 export function useVault() {
