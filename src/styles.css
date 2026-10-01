@@ -565,7 +565,7 @@ body:has(.selection-bar[data-visible="true"]) .clipboard-tray { bottom: calc(10.
   }
 
   button:disabled, [aria-disabled="true"], input:disabled, textarea:disabled, select:disabled,
-  [data-disabled], .cursor-not-allowed {
+  [data-disabled]:not([data-disabled="false"]), .cursor-not-allowed {
     cursor: var(--cursor-blocked), not-allowed;
   }
 
