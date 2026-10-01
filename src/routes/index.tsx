@@ -5,17 +5,22 @@ import {
   Check,
   ClipboardCheck,
   Command,
+  Copy,
   FileText,
   GraduationCap,
   KeyRound,
   LockKeyhole,
+  MoreHorizontal,
   Search,
   ShieldCheck,
+  User,
   UserRound,
 } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/vault/brand-logo";
+import { SectionIcon } from "@/components/vault/basics";
+import { NAV } from "@/lib/schema";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
