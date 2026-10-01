@@ -1,6 +1,5 @@
 import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
 import { SectionSkeleton } from "@/components/vault/loading-skeleton";
-import { SECTION_BY_ID } from "@/lib/schema";
 
 export const Route = createFileRoute("/_authenticated/documents")({
   head: () => ({
@@ -15,5 +14,5 @@ export const Route = createFileRoute("/_authenticated/documents")({
   }),
   pendingMs: 0,
   pendingComponent: SectionSkeleton,
-  component: lazyRouteComponent(() => import("@/components/vault/section-page").then((mod) => ({ default: () => <mod.SectionPage def={SECTION_BY_ID.documents} /> }))),
+  component: lazyRouteComponent(() => import("@/components/vault/section-routes"), "DocumentsSection"),
 });
