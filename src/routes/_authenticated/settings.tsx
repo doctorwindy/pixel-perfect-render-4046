@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SettingsView } from "@/components/vault/settings-view";
+import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
+import { SectionSkeleton } from "@/components/vault/loading-skeleton";
+
 
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
@@ -12,5 +13,7 @@ export const Route = createFileRoute("/_authenticated/settings")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: SettingsView,
+  pendingMs: 0,
+  pendingComponent: SectionSkeleton,
+  component: lazyRouteComponent(() => import("@/components/vault/settings-view"), "SettingsView"),
 });

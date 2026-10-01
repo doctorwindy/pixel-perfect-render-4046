@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SectionPage } from "@/components/vault/section-page";
+import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
+import { SectionSkeleton } from "@/components/vault/loading-skeleton";
 import { SECTION_BY_ID } from "@/lib/schema";
 
 export const Route = createFileRoute("/_authenticated/documents")({
@@ -13,5 +13,7 @@ export const Route = createFileRoute("/_authenticated/documents")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: () => <SectionPage def={SECTION_BY_ID.documents} />,
+  pendingMs: 0,
+  pendingComponent: SectionSkeleton,
+  component: lazyRouteComponent(() => import("@/components/vault/section-page").then((mod) => ({ default: () => <mod.SectionPage def={SECTION_BY_ID.documents} /> }))),
 });

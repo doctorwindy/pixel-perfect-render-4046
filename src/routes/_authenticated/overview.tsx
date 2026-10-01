@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Overview } from "@/components/vault/overview";
+import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
+import { SectionSkeleton } from "@/components/vault/loading-skeleton";
+
 
 export const Route = createFileRoute("/_authenticated/overview")({
   head: () => ({
@@ -12,5 +13,7 @@ export const Route = createFileRoute("/_authenticated/overview")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: Overview,
+  pendingMs: 0,
+  pendingComponent: SectionSkeleton,
+  component: lazyRouteComponent(() => import("@/components/vault/overview"), "Overview"),
 });
