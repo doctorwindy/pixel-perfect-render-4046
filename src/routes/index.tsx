@@ -304,7 +304,7 @@ function DepthObject({ kind }: { kind: (typeof DEPTH_ITEMS)[number]["kind"] }) {
         width={1024}
         height={1024}
         loading="lazy"
-        className="depth-art mx-auto h-full w-auto max-w-full object-contain"
+        className="depth-art mx-auto h-44 w-auto max-w-full object-contain"
       />
     </div>
   );
