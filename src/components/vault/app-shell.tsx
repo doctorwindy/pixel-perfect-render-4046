@@ -115,7 +115,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <aside className="glass-bar fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r p-4 lg:flex">
         <Link to="/overview" aria-label="InfoVault home" className="mb-5 block px-1.5">
-          <BrandLogo className="w-full" />
+          <BrandLogo className="w-40" />
         </Link>
         <nav aria-label="Sections" className="flex-1 space-y-0.5 overflow-y-auto">
           {NAV.filter((n) => n.id !== "settings").map((n) => (
@@ -154,7 +154,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <div className="lg:pl-64">
         <div className="glass-bar sticky top-0 z-20 flex items-center gap-3 border-b px-5 py-2.5 md:px-8">
-          <Link to="/overview" aria-label="InfoVault home" className="w-28 shrink-0 sm:w-36 lg:hidden">
+          <Link to="/overview" aria-label="InfoVault home" className="w-24 shrink-0 sm:w-28 lg:hidden">
             <BrandLogo className="w-full" />
           </Link>
           <div className="flex flex-1 justify-center">
