@@ -316,11 +316,11 @@ function DepthObject({ kind }: { kind: (typeof DEPTH_ITEMS)[number]["kind"] }) {
 function DepthShowcase() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const items = ref.current?.querySelectorAll<HTMLElement>("[data-depth]");
+    const items = document.querySelectorAll<HTMLElement>("[data-depth]");
     if (!items) return;
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.setAttribute("data-shown", ""); io.unobserve(e.target); } }),
-      { threshold: 0.3 },
+      { threshold: 0.15 },
     );
     items.forEach((el) => io.observe(el));
     return () => io.disconnect();
@@ -399,7 +399,7 @@ function Landing() {
 
         <section className="border-y border-border/70 bg-card/30 py-20 sm:py-28">
           <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-20 lg:px-10">
-            <div className="lg:sticky lg:top-24">
+            <div data-depth className="depth-reveal lg:sticky lg:top-24">
               <p className="text-sm font-semibold text-primary">One place for the recurring details</p>
               <h2 className="mt-3 text-3xl font-bold leading-tight text-heading sm:text-5xl">Organized like you already think.</h2>
               <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
@@ -408,7 +408,7 @@ function Landing() {
             </div>
             <ul className="grid gap-4 sm:grid-cols-2">
               {VAULT_GROUPS.map((group, index) => (
-                <li key={group.label} className={`glass-slab p-5 sm:p-6 ${index % 2 ? "sm:translate-y-8" : ""}`}>
+                <li key={group.label} data-depth style={{ transitionDelay: `${index * 80}ms` }} className={`depth-reveal glass-slab p-5 sm:p-6 ${index % 2 ? "sm:mt-8 sm:-mb-8" : ""}`}>
                   <span className={`tint-tile grid h-11 w-11 place-items-center rounded-xl ${group.tint}`}><group.icon className="h-5 w-5" /></span>
                   <h3 className="mt-5 text-lg font-semibold text-heading">{group.label}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{group.detail}</p>
@@ -419,13 +419,13 @@ function Landing() {
         </section>
 
         <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28 lg:px-10">
-          <div className="max-w-2xl">
+          <div data-depth className="depth-reveal max-w-2xl">
             <p className="text-sm font-semibold text-primary">A shorter path from memory to form</p>
             <h2 className="mt-3 text-3xl font-bold text-heading sm:text-5xl">Save once. Stop searching.</h2>
           </div>
           <ol className="mt-12 grid border-y border-border/70 sm:grid-cols-3">
             {STEPS.map(([number, title, text], index) => (
-              <li key={number} className={`py-7 sm:px-7 sm:py-9 ${index ? "border-t border-border/70 sm:border-l sm:border-t-0" : ""}`}>
+              <li key={number} data-depth style={{ transitionDelay: `${index * 80}ms` }} className={`depth-reveal py-7 sm:px-7 sm:py-9 ${index ? "border-t border-border/70 sm:border-l sm:border-t-0" : ""}`}>
                 <span className="font-mono text-sm font-semibold text-primary">{number}</span>
                 <h3 className="mt-7 text-xl font-semibold text-heading">{title}</h3>
                 <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">{text}</p>
@@ -436,7 +436,7 @@ function Landing() {
 
         <section className="pb-20 sm:pb-28">
           <div className="mx-auto grid max-w-7xl gap-6 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10">
-            <article className="glass-slab overflow-hidden p-6 sm:p-9">
+            <article data-depth className="depth-reveal glass-slab overflow-hidden p-6 sm:p-9">
               <div className="flex items-center gap-3 text-primary"><Command className="h-5 w-5" /><span className="text-sm font-semibold">Quick search</span></div>
               <h2 className="mt-6 max-w-lg text-3xl font-bold text-heading sm:text-4xl">Every saved detail is a few keystrokes away.</h2>
               <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">Search your whole vault, jump straight to a section, and copy without breaking your flow.</p>
@@ -445,7 +445,7 @@ function Landing() {
                 <div className="mt-3 flex items-center gap-3 rounded-xl bg-primary/10 p-3 text-sm"><span className="tint-tile grid h-8 w-8 place-items-center rounded-lg bg-tint-blue"><UserRound className="h-4 w-4" /></span><span className="font-medium text-heading">Personal · Email</span><span className="ml-auto text-xs font-semibold text-primary">Copy</span></div>
               </div>
             </article>
-            <article className="glass-slab flex flex-col justify-between p-6 sm:p-9">
+            <article data-depth style={{ transitionDelay: "80ms" }} className="depth-reveal glass-slab flex flex-col justify-between p-6 sm:p-9">
               <div>
                 <div className="flex items-center gap-3 text-primary"><LockKeyhole className="h-5 w-5" /><span className="text-sm font-semibold">Private by default</span></div>
                 <h2 className="mt-6 text-3xl font-bold text-heading sm:text-4xl">Only your account opens your vault.</h2>
@@ -459,7 +459,7 @@ function Landing() {
         </section>
 
         <section className="border-t border-border/70 bg-card/30 py-20 sm:py-28">
-          <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
+          <div data-depth className="depth-reveal mx-auto max-w-4xl px-5 text-center sm:px-8">
             <BrandLogo compact className="mx-auto h-14 w-14" />
             <h2 className="mt-7 text-4xl font-bold text-heading sm:text-5xl">Type it once. Keep it ready.</h2>
             <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Create your private vault and make repetitive forms a little less repetitive.</p>
