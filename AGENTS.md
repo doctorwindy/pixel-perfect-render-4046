@@ -19,3 +19,5 @@
 <!-- Loading decision: Lazy-load section views while retaining intent preloading, and show shared shape-matched skeletons for auth, vault fetch, and route pending states; this keeps first load lighter and avoids showing stale sections while waiting. -->
 <!-- Brand asset decision: Keep the supplied horizontal logo and its dark-mode counterpart in one shared component, with the icon used only where a compact format is needed; this prevents mismatched branding across screens. -->
 <!-- Landing hero decision: Use CSS-rendered product UI and data-flow graphics instead of stock imagery, so the first viewport demonstrates InfoVault without exposing real personal information. -->
+
+<!-- Landing motion decision: Landing scroll and hover choreography (GSAP + ScrollTrigger) lives in src/components/landing/motion.tsx, gated by prefers-reduced-motion via gsap.matchMedia, so the iOS visual language stays untouched and motion can be tuned in one place. -->
