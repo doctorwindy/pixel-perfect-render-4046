@@ -9,6 +9,9 @@ import { Label } from "@/components/ui/label";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
+import { useQueryClient } from "@tanstack/react-query";
+import type { Session } from "@supabase/supabase-js";
+import { VaultLoadingSkeleton } from "@/components/vault/loading-skeleton";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -37,15 +40,25 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const [entering, setEntering] = useState(false);
+  const qc = useQueryClient();
+
+  const enter = (session: Session | null) => {
+    if (!session) return;
+    // Show the app's loading shell right away and reuse the fresh user so the
+    // dashboard doesn't wait on a second account check.
+    setEntering(true);
+    qc.setQueryData(["authenticated-user"], session.user);
+    navigate({ to: "/overview" });
+  };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/overview" });
-    });
-    const { data } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_IN") navigate({ to: "/overview" });
+    supabase.auth.getSession().then(({ data }) => enter(data.session));
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN") enter(session);
     });
     return () => data.subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const submit = async (e: FormEvent) => {
@@ -67,9 +80,9 @@ function AuthPage() {
         if (err) throw err;
         setSent(true);
       } else {
-        const { error: err } = await supabase.auth.signInWithPassword(parsed.data);
+        const { data: signed, error: err } = await supabase.auth.signInWithPassword(parsed.data);
         if (err) throw err;
-        navigate({ to: "/overview" });
+        enter(signed.session);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -83,6 +96,8 @@ function AuthPage() {
     const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
     if (res.error) toast.error("Google sign-in didn't work. Please try again.");
   };
+
+  if (entering) return <VaultLoadingSkeleton />;
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
