@@ -16,7 +16,7 @@ import {
   User,
   UserRound,
 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/vault/brand-logo";
 import { SectionIcon } from "@/components/vault/basics";
@@ -274,6 +274,76 @@ function VaultPreview() {
   );
 }
 
+const DEPTH_ITEMS = [
+  { title: "Stacked by section", body: "Personal, education, experience and more — each in its own layer.", kind: "stack" },
+  { title: "Locked to you", body: "Every saved detail stays tied to your account and nobody else's.", kind: "lock" },
+  { title: "Copy in one tap", body: "Pull out exactly the value a form asks for, ready to paste.", kind: "copy" },
+] as const;
+
+function DepthObject({ kind }: { kind: (typeof DEPTH_ITEMS)[number]["kind"] }) {
+  if (kind === "stack") {
+    return (
+      <div className="depth-scene" aria-hidden="true">
+        <div className="depth-stack">
+          <span className="depth-sheet depth-sheet-3 bg-tint-green" />
+          <span className="depth-sheet depth-sheet-2 bg-tint-orange" />
+          <span className="depth-sheet depth-sheet-1 bg-primary"><User className="h-8 w-8" /></span>
+        </div>
+      </div>
+    );
+  }
+  if (kind === "lock") {
+    return (
+      <div className="depth-scene" aria-hidden="true">
+        <div className="depth-cube">
+          {["front", "back", "right", "left", "top", "bottom"].map((f) => (
+            <span key={f} className={`depth-face depth-face-${f}`}>{f === "front" && <KeyRound className="h-9 w-9" />}</span>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="depth-scene" aria-hidden="true">
+      <div className="depth-copy">
+        <span className="depth-card depth-card-back"><span /><span /></span>
+        <span className="depth-card depth-card-front"><Copy className="h-7 w-7" /><span /></span>
+      </div>
+    </div>
+  );
+}
+
+function DepthShowcase() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const items = ref.current?.querySelectorAll<HTMLElement>("[data-depth]");
+    if (!items) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.setAttribute("data-shown", ""); io.unobserve(e.target); } }),
+      { threshold: 0.3 },
+    );
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <section className="mx-auto max-w-7xl px-5 pb-20 sm:px-8 sm:pb-28 lg:px-10" aria-labelledby="depth-title">
+      <h2 id="depth-title" className="mx-auto max-w-2xl text-center text-3xl font-bold leading-tight text-heading sm:text-5xl">
+        Built in layers, like a real vault.
+      </h2>
+      <div ref={ref} className="mt-14 grid gap-6 md:grid-cols-3">
+        {DEPTH_ITEMS.map((item, i) => (
+          <article key={item.kind} data-depth className="depth-reveal rounded-[1.75rem] border border-border bg-card shadow-glass p-6 text-center" style={{ transitionDelay: `${i * 80}ms` }}>
+            <DepthObject kind={item.kind} />
+            <h3 className="mt-6 text-xl font-semibold text-heading">{item.title}</h3>
+            <p className="mt-2 text-muted-foreground">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Landing() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -302,15 +372,15 @@ function Landing() {
       </header>
 
       <main id="main-content">
-        <section className="landing-hero relative w-full overflow-x-clip mx-auto grid min-h-[calc(100dvh-5rem)] max-w-7xl grid-cols-1 items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14 lg:px-10 lg:pb-24 lg:pt-8">
-          <div className="relative z-10 min-w-0 max-w-xl vault-arrive">
-            <h1 className="text-5xl font-bold leading-[1.02] text-heading sm:text-6xl lg:text-7xl">
+        <section className="landing-hero relative w-full overflow-x-clip mx-auto grid min-h-[calc(100dvh-5rem)] max-w-7xl grid-cols-1 items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:place-items-center lg:px-10 lg:pb-24 lg:pt-8">
+          <div className="relative z-10 min-w-0 max-w-xl vault-arrive lg:max-w-4xl lg:text-center">
+            <h1 className="text-5xl font-bold leading-[1.02] text-heading sm:text-6xl lg:text-8xl">
               Every detail. <span className="text-primary">Exactly where you need it.</span>
             </h1>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl">
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl lg:mx-auto lg:max-w-2xl">
               Keep the details you use across forms and applications in one organized place. Find them fast, then copy exactly what you need.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:justify-center">
               <Button asChild size="lg">
                 <Link to="/auth">Get started free <ArrowRight /></Link>
               </Button>
@@ -320,8 +390,12 @@ function Landing() {
             </div>
             <p className="mt-5 text-sm text-muted-foreground">No payment details required. Your saved information stays tied to your account.</p>
           </div>
-          <VaultPreview />
+          <div className="min-w-0 lg:hidden">
+            <VaultPreview />
+          </div>
         </section>
+
+        <DepthShowcase />
 
         <section className="border-y border-border/70 bg-card/30 py-20 sm:py-28">
           <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-20 lg:px-10">
