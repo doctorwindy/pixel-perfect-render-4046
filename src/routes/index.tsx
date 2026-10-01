@@ -50,6 +50,12 @@ const STEPS = [
   ["03", "Copy what you need", "Copy one field or select a group, then paste it wherever it belongs."],
 ] as const;
 
+const PREVIEW_FIELDS = [
+  ["Full name", "Maya Chen"],
+  ["Email", "maya.chen@example.com"],
+  ["Phone", "+1 415 555 0142"],
+] as const;
+
 function CopyButton({ label }: { label: string }) {
   return (
     <button
@@ -100,11 +106,7 @@ function VaultPreview() {
               <span className="hidden text-xs text-muted-foreground sm:block">3 saved fields</span>
             </div>
             <div className="mt-5 space-y-3">
-              {[
-                ["Full name", "Maya Chen"],
-                ["Email", "maya.chen@example.com"],
-                ["Phone", "+1 415 555 0142"],
-              ].map(([label, value], index) => (
+              {PREVIEW_FIELDS.map(([label, value], index) => (
                 <div key={label} className="flex items-center gap-3 rounded-xl bg-card/70 p-3 shadow-sm ring-1 ring-border/70">
                   <span className={`h-8 w-1 rounded-full ${index === 0 ? "bg-primary" : index === 1 ? "bg-tint-purple" : "bg-tint-green"}`} />
                   <div className="min-w-0 flex-1">

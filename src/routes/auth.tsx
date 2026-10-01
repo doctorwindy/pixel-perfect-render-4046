@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Check, ChevronLeft, ClipboardCheck, LockKeyhole, Search } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -32,6 +33,12 @@ const credSchema = z.object({
   email: z.string().trim().email("Enter a valid email").max(255),
   password: z.string().min(8, "Use at least 8 characters").max(72),
 });
+
+const AUTH_BENEFITS: ReadonlyArray<readonly [LucideIcon, string]> = [
+  [ClipboardCheck, "Copy a single field or a selected group"],
+  [Search, "Search every saved section from one place"],
+  [LockKeyhole, "Keep saved information private to your account"],
+];
 
 function AuthPage() {
   const navigate = useNavigate();
@@ -117,14 +124,10 @@ function AuthPage() {
           <h1 className="mt-4 text-5xl font-bold leading-[1.05] text-heading">Less retyping. More time for what matters.</h1>
           <p className="mt-5 max-w-md text-lg leading-relaxed text-muted-foreground">Open your vault to find, copy and manage the details you use across applications and forms.</p>
           <div className="mt-10 space-y-3">
-            {[
-              [ClipboardCheck, "Copy a single field or a selected group"],
-              [Search, "Search every saved section from one place"],
-              [LockKeyhole, "Keep saved information private to your account"],
-            ].map(([Icon, text]) => (
-              <div key={text as string} className="flex items-center gap-4 rounded-xl border border-border/70 bg-card/45 p-4 backdrop-blur-xl">
+            {AUTH_BENEFITS.map(([Icon, text]) => (
+              <div key={text} className="flex items-center gap-4 rounded-xl border border-border/70 bg-card/45 p-4 backdrop-blur-xl">
                 <span className="tint-tile grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-tint-blue"><Icon className="h-5 w-5" /></span>
-                <p className="text-sm font-medium text-heading">{text as string}</p>
+                <p className="text-sm font-medium text-heading">{text}</p>
               </div>
             ))}
           </div>
