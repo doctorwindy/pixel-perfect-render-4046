@@ -92,7 +92,9 @@ interface VaultApi {
   setPaletteOpen: (o: boolean) => void;
 }
 
-const Ctx = createContext<VaultApi | null>(null);
+// Keep one context instance across hot reloads so provider and consumers always match.
+const g = globalThis as unknown as { __infovaultCtx?: React.Context<VaultApi | null> };
+const Ctx = (g.__infovaultCtx ??= createContext<VaultApi | null>(null));
 
 export function useVault() {
   const v = useContext(Ctx);
