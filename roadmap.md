@@ -1,3 +1,3 @@
-- [ ] Load vault sections on demand without delaying navigation.
-- [ ] Show iOS-style skeletons during first vault load and section transitions.
-- [ ] Verify desktop and mobile loading/navigation.
+- [x] Load vault sections on demand without delaying navigation.
+- [x] Show iOS-style skeletons during first vault load and section transitions.
+- [x] Verify desktop and mobile loading/navigation.
