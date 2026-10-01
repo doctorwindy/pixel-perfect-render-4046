@@ -290,35 +290,19 @@ const DEPTH_ITEMS = [
   { title: "Copy in one tap", body: "Pull out exactly the value a form asks for, ready to paste.", kind: "copy" },
 ] as const;
 
+const DEPTH_ART = { stack: depthLayers, lock: depthVault, copy: depthCopy } as const;
+
 function DepthObject({ kind }: { kind: (typeof DEPTH_ITEMS)[number]["kind"] }) {
-  if (kind === "stack") {
-    return (
-      <div className="depth-scene" aria-hidden="true">
-        <div className="depth-stack">
-          <span className="depth-sheet depth-sheet-3 bg-tint-green" />
-          <span className="depth-sheet depth-sheet-2 bg-tint-orange" />
-          <span className="depth-sheet depth-sheet-1 bg-primary"><User className="h-8 w-8" /></span>
-        </div>
-      </div>
-    );
-  }
-  if (kind === "lock") {
-    return (
-      <div className="depth-scene" aria-hidden="true">
-        <div className="depth-cube">
-          {["front", "back", "right", "left", "top", "bottom"].map((f) => (
-            <span key={f} className={`depth-face depth-face-${f}`}>{f === "front" && <KeyRound className="h-9 w-9" />}</span>
-          ))}
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="depth-scene" aria-hidden="true">
-      <div className="depth-copy">
-        <span className="depth-card depth-card-back"><span /><span /></span>
-        <span className="depth-card depth-card-front"><Copy className="h-7 w-7" /><span /></span>
-      </div>
+      <img
+        src={DEPTH_ART[kind]}
+        alt=""
+        width={1024}
+        height={1024}
+        loading="lazy"
+        className="depth-art mx-auto h-full w-auto max-w-full object-contain"
+      />
     </div>
   );
 }
