@@ -345,7 +345,7 @@ export function VaultAccordion() {
     <section ref={root} className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32 lg:px-10" aria-labelledby="accordion-title">
       <h2 id="accordion-title" className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.15] text-heading sm:text-5xl">
         Everything you reuse,
-        <span className="mx-2 inline-flex h-[0.85em] w-[1.9em] items-center justify-center gap-[0.18em] rounded-full bg-primary align-[-0.1em] text-primary-foreground shadow-glass" aria-hidden="true">
+        <span className="mx-2 inline-flex h-[0.85em] w-[1.9em] translate-y-[0.02em] items-center justify-center gap-[0.18em] rounded-full bg-primary align-middle text-primary-foreground shadow-glass" aria-hidden="true">
           <Copy className="h-[0.42em] w-[0.42em]" />
           <Check className="h-[0.42em] w-[0.42em]" />
         </span>
