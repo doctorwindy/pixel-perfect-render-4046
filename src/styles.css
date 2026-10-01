@@ -574,3 +574,44 @@ body:has(.selection-bar[data-visible="true"]) .clipboard-tray { bottom: calc(10.
 
   [aria-busy="true"], .cursor-progress, .cursor-wait { cursor: var(--cursor-progress), progress; }
 }
+
+/*
+ * macOS-style overlay scrollbar.
+ * Track is invisible; thumb is a translucent gray capsule that deepens on
+ * hover/press, matching the glass aesthetic. Firefox uses the thin
+ * scrollbar-color equivalent; token-based so it adapts to dark mode.
+ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--muted-foreground) 32%, transparent) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklch, var(--muted-foreground) 32%, transparent);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  min-height: 32px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in oklch, var(--muted-foreground) 55%, transparent);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: color-mix(in oklch, var(--muted-foreground) 72%, transparent);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
