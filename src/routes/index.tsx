@@ -7,8 +7,10 @@ import {
   Command,
   FileText,
   GraduationCap,
+  KeyRound,
   LockKeyhole,
   Search,
+  ShieldCheck,
   UserRound,
 } from "lucide-react";
 import { useEffect } from "react";
@@ -70,58 +72,90 @@ function CopyButton({ label }: { label: string }) {
 
 function VaultPreview() {
   return (
-    <div className="landing-vault-preview relative mx-auto w-full max-w-xl" aria-label="Example InfoVault screen">
-      <div className="landing-preview-backdrop absolute inset-x-8 -top-5 h-full rounded-[1.75rem]" />
-      <div className="glass-pop relative overflow-hidden rounded-[1.75rem]">
-        <div className="flex items-center gap-2 border-b border-border/70 px-4 py-3 sm:px-5">
-          <span className="h-2.5 w-2.5 rounded-full bg-tint-red" />
-          <span className="h-2.5 w-2.5 rounded-full bg-tint-yellow" />
-          <span className="h-2.5 w-2.5 rounded-full bg-tint-green" />
-          <div className="ml-2 flex h-8 flex-1 items-center gap-2 rounded-lg bg-muted/80 px-3 text-xs text-muted-foreground">
-            <Search className="h-3.5 w-3.5" /> Search your vault
-            <kbd className="ml-auto hidden rounded-md border border-border bg-card/70 px-1.5 py-0.5 font-mono text-[10px] sm:inline">⌘ K</kbd>
-          </div>
-        </div>
-        <div className="grid min-h-[22rem] grid-cols-[4.75rem_1fr] sm:grid-cols-[9.5rem_1fr]">
-          <aside className="border-r border-border/70 bg-sidebar/55 p-3 sm:p-4">
-            <BrandLogo compact className="mx-auto h-8 w-8 sm:mx-0" />
-            <div className="mt-6 space-y-2">
-              {VAULT_GROUPS.slice(0, 4).map((group, index) => (
-                <div
-                  key={group.label}
-                  className={`flex items-center gap-2 rounded-lg p-2 ${index === 0 ? "glass-nav-active text-primary" : "text-muted-foreground"}`}
-                >
-                  <group.icon className="h-4 w-4 shrink-0" />
-                  <span className="hidden text-xs font-medium sm:block">{group.label}</span>
-                </div>
-              ))}
-            </div>
-          </aside>
-          <div className="p-4 sm:p-6">
-            <div className="flex items-end justify-between gap-3">
-              <div>
-                <p className="text-xs font-medium text-primary">Personal</p>
-                <h2 className="mt-1 text-xl font-bold text-heading sm:text-2xl">The details you use most</h2>
+    <div className="landing-hero-visual relative mx-auto w-full max-w-2xl" aria-label="Example InfoVault screen">
+      <div className="vault-orbit vault-orbit-outer" aria-hidden="true" />
+      <div className="vault-orbit vault-orbit-inner" aria-hidden="true" />
+
+      <div className="floating-record floating-record-personal" aria-hidden="true">
+        <span className="tint-tile grid h-9 w-9 place-items-center rounded-xl bg-tint-blue"><UserRound className="h-4 w-4" /></span>
+        <span><b>Personal</b><small>8 details ready</small></span>
+        <Check className="ml-auto h-4 w-4 text-success" />
+      </div>
+      <div className="floating-record floating-record-secure" aria-hidden="true">
+        <span className="tint-tile grid h-9 w-9 place-items-center rounded-xl bg-tint-green"><ShieldCheck className="h-4 w-4" /></span>
+        <span><b>Account protected</b><small>Private by default</small></span>
+      </div>
+      <div className="floating-copy-path" aria-hidden="true">
+        <span className="copy-path-dot" />
+        <span className="copy-path-line" />
+        <span className="copy-path-chip"><ClipboardCheck className="h-3.5 w-3.5" /> Ready to paste</span>
+      </div>
+
+      <div className="landing-vault-preview relative z-10 mx-auto w-[92%] max-w-xl">
+        <div className="landing-preview-backdrop absolute inset-x-8 -top-5 h-full rounded-[1.75rem]" />
+        <div className="vault-frame relative rounded-[1.9rem] p-1.5">
+          <div className="glass-pop relative overflow-hidden rounded-[1.55rem]">
+            <div className="flex items-center gap-2 border-b border-border/70 px-4 py-3 sm:px-5">
+              <span className="h-2.5 w-2.5 rounded-full bg-tint-red" />
+              <span className="h-2.5 w-2.5 rounded-full bg-tint-yellow" />
+              <span className="h-2.5 w-2.5 rounded-full bg-tint-green" />
+              <div className="ml-2 flex h-8 flex-1 items-center gap-2 rounded-lg bg-muted/80 px-3 text-xs text-muted-foreground">
+                <Search className="h-3.5 w-3.5" /> Search your vault
+                <kbd className="ml-auto hidden rounded-md border border-border bg-card/70 px-1.5 py-0.5 font-mono text-[10px] sm:inline">⌘ K</kbd>
               </div>
-              <span className="hidden text-xs text-muted-foreground sm:block">3 saved fields</span>
-            </div>
-            <div className="mt-5 space-y-3">
-              {PREVIEW_FIELDS.map(([label, value], index) => (
-                <div key={label} className="flex items-center gap-3 rounded-xl bg-card/70 p-3 shadow-sm ring-1 ring-border/70">
-                  <span className={`h-8 w-1 rounded-full ${index === 0 ? "bg-primary" : index === 1 ? "bg-tint-purple" : "bg-tint-green"}`} />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[11px] font-medium text-muted-foreground">{label}</p>
-                    <p className="truncate text-sm font-semibold text-heading">{value}</p>
-                  </div>
-                  <CopyButton label={label} />
+          </div>
+            <div className="grid min-h-[22rem] grid-cols-[4.75rem_1fr] sm:grid-cols-[9.5rem_1fr]">
+              <aside className="border-r border-border/70 bg-sidebar/55 p-3 sm:p-4">
+                <BrandLogo compact className="mx-auto h-8 w-8 sm:mx-0" />
+                <div className="mt-6 space-y-2">
+                  {VAULT_GROUPS.slice(0, 4).map((group, index) => (
+                    <div
+                      key={group.label}
+                      className={`flex items-center gap-2 rounded-lg p-2 ${index === 0 ? "glass-nav-active text-primary" : "text-muted-foreground"}`}
+                    >
+                      <group.icon className="h-4 w-4 shrink-0" />
+                      <span className="hidden text-xs font-medium sm:block">{group.label}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="mt-4 flex items-center gap-2 rounded-xl bg-primary/10 p-3 text-xs font-medium text-primary">
-              <Check className="h-4 w-4" /> Ready to paste
+                <div className="mt-5 hidden rounded-xl bg-primary/10 p-3 sm:block">
+                  <KeyRound className="h-4 w-4 text-primary" />
+                  <p className="mt-2 text-[10px] font-semibold text-heading">Your private space</p>
+                </div>
+              </aside>
+              <div className="p-4 sm:p-6">
+                <div className="flex items-end justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-medium text-primary">Personal</p>
+                    <h2 className="mt-1 text-xl font-bold text-heading sm:text-2xl">Ready when you need it</h2>
+                  </div>
+                  <span className="hidden text-xs text-muted-foreground sm:block">3 saved fields</span>
+                </div>
+                <div className="mt-5 space-y-3">
+                  {PREVIEW_FIELDS.map(([label, value], index) => (
+                    <div key={label} className="vault-field flex items-center gap-3 rounded-xl bg-card/70 p-3 shadow-sm ring-1 ring-border/70">
+                      <span className={`h-8 w-1 rounded-full ${index === 0 ? "bg-primary" : index === 1 ? "bg-tint-purple" : "bg-tint-green"}`} />
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[11px] font-medium text-muted-foreground">{label}</p>
+                        <p className="truncate text-sm font-semibold text-heading">{value}</p>
+                      </div>
+                      <CopyButton label={label} />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 flex items-center gap-2 rounded-xl bg-primary/10 p-3 text-xs font-medium text-primary">
+                  <Check className="h-4 w-4" /> Everything in one place
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="floating-record floating-record-education" aria-hidden="true">
+        <span className="tint-tile grid h-9 w-9 place-items-center rounded-xl bg-tint-purple"><GraduationCap className="h-4 w-4" /></span>
+        <span><b>Education</b><small>Degree copied</small></span>
+        <ClipboardCheck className="ml-auto h-4 w-4 text-primary" />
       </div>
     </div>
   );
@@ -155,13 +189,13 @@ function Landing() {
       </header>
 
       <main id="main-content">
-        <section className="relative mx-auto grid min-h-[calc(100dvh-5rem)] max-w-7xl items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20 lg:px-10 lg:pb-28 lg:pt-12">
+        <section className="landing-hero relative mx-auto grid min-h-[calc(100dvh-5rem)] max-w-7xl items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14 lg:px-10 lg:pb-24 lg:pt-8">
           <div className="relative z-10 max-w-xl vault-arrive">
             <p className="mb-5 inline-flex items-center gap-2 rounded-lg border border-border/70 bg-card/55 px-3 py-1.5 text-xs font-semibold text-muted-foreground shadow-sm backdrop-blur-xl">
               <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private to your account
             </p>
             <h1 className="text-5xl font-bold leading-[1.02] text-heading sm:text-6xl lg:text-7xl">
-              Your information, <span className="text-primary">ready when you are.</span>
+              Every detail. <span className="text-primary">Exactly where you need it.</span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl">
               Keep the details you use across forms and applications in one organized place. Find them fast, then copy exactly what you need.
