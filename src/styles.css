@@ -601,7 +601,7 @@
   .vault-orbit-outer { width: min(27rem, 92vw); height: min(27rem, 92vw); }
   .vault-orbit-inner { width: min(22rem, 78vw); height: min(22rem, 78vw); }
   .floating-record { display: none; }
-  .floating-copy-path { left: 0.25rem; bottom: 1.2rem; }
+  .floating-copy-path { left: 0.25rem; bottom: -1.25rem; }
 }
 
 @keyframes first-record-fade {
