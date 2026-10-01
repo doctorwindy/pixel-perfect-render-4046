@@ -3,9 +3,12 @@ import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { AppShell } from "@/components/vault/app-shell";
 import { VaultProvider } from "@/lib/vault-context";
+import { VaultLoadingSkeleton } from "@/components/vault/loading-skeleton";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
+  pendingMs: 0,
+  pendingComponent: VaultLoadingSkeleton,
   beforeLoad: async ({ context }) => {
     const user = await context.queryClient.ensureQueryData(queryOptions({
       queryKey: ["authenticated-user"],
