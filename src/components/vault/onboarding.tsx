@@ -57,7 +57,7 @@ export function OnboardingDialog() {
             onKeyDown={(e) => e.key === "Enter" && finish(true)}
           />
         </div>
-        <DialogFooter className="gap-2 sm:justify-between">
+        <DialogFooter className="sm:justify-between">
           <Button variant="ghost" disabled={busy} onClick={() => finish(false)}>
             Skip for now
           </Button>
