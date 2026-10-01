@@ -15,3 +15,4 @@
 
 <!-- Copy feedback decision: The copy tray replaces the "Copied" toast so the copied value can fly from its button into one fixed landing spot; sensitive values are never previewed. -->
 <!-- Card morph decision: Use the browser View Transitions API (no library) to morph record cards into their edit dialog, skipped when unsupported or when reduced motion is requested. -->
+<!-- Navigation decision: Cache the validated user briefly in the router's QueryClient and clear it on auth changes so section switches do not wait for a remote account check. -->
