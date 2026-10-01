@@ -23,7 +23,7 @@ const Command = React.forwardRef<
 ));
 Command.displayName = CommandPrimitive.displayName;
 
-const CommandDialog = ({ children, className, ...props }: DialogProps) => {
+const CommandDialog = ({ children, className, ...props }: DialogProps & { className?: string }) => {
   return (
     <Dialog {...props}>
       <DialogContent className={cn("overflow-hidden p-0", className)}>
