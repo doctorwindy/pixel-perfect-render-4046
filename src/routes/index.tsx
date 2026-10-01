@@ -1,3 +1,6 @@
+import depthLayers from "@/assets/depth-layers.png";
+import depthVault from "@/assets/depth-vault.png";
+import depthCopy from "@/assets/depth-copy.png";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   ArrowRight,
