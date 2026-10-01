@@ -101,7 +101,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const name = v.vault.profile.display_name || v.user.email?.split("@")[0] || "You";
   const primary = NAV.filter((n) => MOBILE_PRIMARY.includes(n.id));
-  const rest = NAV.filter((n) => !MOBILE_PRIMARY.includes(n.id));
+  const rest = NAV.filter((n) => !MOBILE_PRIMARY.includes(n.id) && n.id !== "settings");
 
   return (
     <div className="min-h-screen">
@@ -127,7 +127,6 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="mt-3 shrink-0 border-t pt-3">
           <p className="px-2 pb-2 text-xs text-muted-foreground">Press Ctrl/Cmd + K to search anything.</p>
           <div className="space-y-0.5">
-            <NavLink n={NAV.find((n) => n.id === "settings")!} />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -143,6 +142,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               <DropdownMenuContent side="top" align="start" className="w-56">
                 <DropdownMenuLabel className="truncate">{v.user.email}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={() => navigate({ to: "/settings" })}>
+                  Settings
+                </DropdownMenuItem>
                 <DropdownMenuItem onSelect={signOut}>
                   <LogOut className="mr-2 h-4 w-4" /> Sign out
                 </DropdownMenuItem>
