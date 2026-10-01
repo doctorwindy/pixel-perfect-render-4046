@@ -120,11 +120,36 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="text-lg font-bold tracking-[-0.02em] text-heading">InfoVault</span>
         </Link>
         <nav aria-label="Sections" className="flex-1 space-y-0.5 overflow-y-auto">
-          {NAV.map((n) => (
+          {NAV.filter((n) => n.id !== "settings").map((n) => (
             <NavLink key={n.id} n={n} />
           ))}
         </nav>
-        <p className="px-2 pt-3 text-xs text-muted-foreground">Press Ctrl/Cmd + K to search anything.</p>
+        <div className="mt-3 shrink-0 border-t pt-3">
+          <p className="px-2 pb-2 text-xs text-muted-foreground">Press Ctrl/Cmd + K to search anything.</p>
+          <div className="space-y-0.5">
+            <NavLink n={NAV.find((n) => n.id === "settings")!} />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-sm font-medium text-foreground/80 hover:bg-accent active:scale-[0.97] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring"
+                >
+                  <span className="tint-tile inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-tint-indigo text-xs font-bold">
+                    {name.slice(0, 1).toUpperCase()}
+                  </span>
+                  <span className="truncate">{name}</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side="top" align="start" className="w-56">
+                <DropdownMenuLabel className="truncate">{v.user.email}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={signOut}>
+                  <LogOut className="mr-2 h-4 w-4" /> Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
       </aside>
 
       <div className="lg:pl-64">
