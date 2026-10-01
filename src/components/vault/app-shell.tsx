@@ -128,7 +128,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="lg:pl-64">
-        <div className="glass-bar sticky top-0 z-20 flex items-center gap-3 border-b px-4 py-2.5 lg:px-8">
+        <div className="glass-bar sticky top-0 z-20 flex items-center gap-3 border-b px-5 py-2.5 md:px-8">
           <Link to="/overview" className="flex items-center gap-2 lg:hidden">
             <span className="tint-tile inline-flex h-8 w-8 items-center justify-center rounded-lg bg-tint-blue">
               <ShieldCheck className="h-4 w-4" />
@@ -170,14 +170,14 @@ export function AppShell({ children }: { children: ReactNode }) {
           </DropdownMenu>
         </div>
 
-        <main id="main" className="mx-auto max-w-5xl px-4 pb-32 pt-6 lg:px-8 lg:pb-16 lg:pt-8">
+        <main id="main" className="mx-auto max-w-5xl px-5 pb-32 pt-6 md:px-8 lg:pb-16 lg:pt-8">
           {children}
         </main>
       </div>
 
       <nav
         aria-label="Primary"
-        className="glass-bar fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-1.5 lg:hidden"
+        className="glass-bar fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t px-3 md:px-6 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-1.5 lg:hidden"
       >
         {primary.map((n) => (
           <NavLink key={n.id} n={n} compact />
