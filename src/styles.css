@@ -802,3 +802,7 @@ body:has(.selection-bar[data-visible="true"]) .clipboard-tray { bottom: calc(10.
   box-shadow: inset 0 0 0 1.5px var(--device-bezel-edge), var(--shadow-glass-lg);
 }
 .device-island { background: var(--device-bezel); }
+
+@media (max-width: 1023px) {
+  .floating-record { display: none; }
+}
