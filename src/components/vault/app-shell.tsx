@@ -162,39 +162,19 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
             <span className="font-bold text-heading">InfoVault</span>
           </Link>
-          <Button
-            type="button"
-            onClick={() => v.setPaletteOpen(true)}
-            variant="ghost"
-            className="ml-auto flex h-10 w-full max-w-md items-center gap-2 rounded-lg bg-card/70 px-3 text-sm font-normal text-muted-foreground shadow-inset-input hover:text-foreground lg:ml-0"
-            aria-label="Search everything"
-          >
-            <Search className="h-4 w-4" />
-            <span className="flex-1 text-left">Search everything</span>
-            <kbd className="hidden rounded-md bg-muted px-1.5 py-0.5 text-xs font-medium sm:inline">⌘K</kbd>
-          </Button>
-          <div className="hidden flex-1 lg:block" />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                type="button"
-                aria-label="Account menu"
-                variant="ghost"
-                size="icon"
-                className="tint-tile inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-tint-indigo text-sm font-bold"
-              >
-                {name.slice(0, 1).toUpperCase()}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel className="truncate">{v.user.email}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={() => navigate({ to: "/settings" })}>Settings</DropdownMenuItem>
-              <DropdownMenuItem onSelect={signOut}>
-                <LogOut className="mr-2 h-4 w-4" /> Sign out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex flex-1 justify-center">
+            <Button
+              type="button"
+              onClick={() => v.setPaletteOpen(true)}
+              variant="ghost"
+              className="flex h-10 w-full max-w-md items-center gap-2 rounded-lg bg-card/70 px-3 text-sm font-normal text-muted-foreground shadow-inset-input hover:text-foreground"
+              aria-label="Search everything"
+            >
+              <Search className="h-4 w-4" />
+              <span className="flex-1 text-left">Search everything</span>
+              <kbd className="hidden rounded-md bg-muted px-1.5 py-0.5 text-xs font-medium sm:inline">⌘K</kbd>
+            </Button>
+          </div>
         </div>
 
         <main id="main" className="mx-auto max-w-5xl px-5 pb-32 pt-6 md:px-8 lg:pb-16 lg:pt-8">
