@@ -597,7 +597,7 @@
   .landing-hero::before { width: 34rem; right: -17rem; top: 72%; }
   .landing-hero-visual { min-height: 29rem; }
   .landing-hero-visual { grid-template-columns: minmax(0, 1fr); }
-  .landing-vault-preview { transform: none; width: 100%; min-width: 0; }
+  .landing-vault-preview { transform: none; max-width: 100%; min-width: 0; }
   .vault-orbit-outer { width: min(27rem, 92vw); height: min(27rem, 92vw); }
   .vault-orbit-inner { width: min(22rem, 78vw); height: min(22rem, 78vw); }
   .floating-record { display: none; }
@@ -793,3 +793,12 @@ body:has(.selection-bar[data-visible="true"]) .clipboard-tray { bottom: calc(10.
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+/* Device mockups for the landing preview on phone/tablet */
+:root { --device-bezel: oklch(0.22 0.01 260); --device-bezel-edge: oklch(0.42 0.01 260); }
+.dark { --device-bezel: oklch(0.12 0.005 260); --device-bezel-edge: oklch(0.34 0.01 260); }
+.device-bezel {
+  background: var(--device-bezel);
+  box-shadow: inset 0 0 0 1.5px var(--device-bezel-edge), var(--shadow-glass-lg);
+}
+.device-island { background: var(--device-bezel); }

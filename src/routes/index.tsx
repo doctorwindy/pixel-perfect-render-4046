@@ -70,6 +70,23 @@ function CopyButton({ label }: { label: string }) {
   );
 }
 
+function PreviewFields({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className={compact ? "mt-3 space-y-2" : "mt-5 space-y-3"}>
+      {PREVIEW_FIELDS.map(([label, value], index) => (
+        <div key={label} className={`vault-field flex items-center gap-3 rounded-xl bg-card/70 shadow-sm ring-1 ring-border/70 ${compact ? "p-2.5" : "p-3"}`}>
+          <span className={`h-8 w-1 rounded-full ${index === 0 ? "bg-primary" : index === 1 ? "bg-tint-purple" : "bg-tint-green"}`} />
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] font-medium text-muted-foreground">{label}</p>
+            <p className="truncate text-sm font-semibold text-heading">{value}</p>
+          </div>
+          <CopyButton label={label} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function VaultPreview() {
   return (
     <div className="landing-hero-visual relative mx-auto w-full min-w-0 max-w-2xl" aria-label="Example InfoVault screen">
@@ -91,22 +108,89 @@ function VaultPreview() {
         <span className="copy-path-chip"><ClipboardCheck className="h-3.5 w-3.5" /> Ready to paste</span>
       </div>
 
-      <div className="landing-vault-preview relative z-10 mx-auto w-[92%] max-w-xl">
+      {/* Phone mockup (small screens) */}
+      <div className="landing-vault-preview relative z-10 mx-auto w-[17.5rem] md:hidden">
+        <div className="device-bezel relative rounded-[2.9rem] p-2.5">
+          <div className="glass-pop relative overflow-hidden rounded-[2.3rem] bg-background">
+            <div className="device-island absolute left-1/2 top-2.5 z-10 h-6 w-24 -translate-x-1/2 rounded-full" />
+            <div className="flex items-center justify-between px-6 pb-1 pt-3 text-[11px] font-semibold text-heading">
+              <span className="tabular-nums">9:41</span>
+              <span className="flex items-center gap-1"><span className="h-2 w-3.5 rounded-sm bg-heading/80" /></span>
+            </div>
+            <div className="flex items-center gap-2 px-4 pb-3 pt-4">
+              <BrandLogo compact className="h-7 w-7 shrink-0" />
+              <div className="flex h-8 flex-1 items-center gap-2 rounded-full bg-muted/80 px-3 text-[11px] text-muted-foreground">
+                <Search className="h-3.5 w-3.5" /> Search
+              </div>
+            </div>
+            <div className="px-4">
+              <p className="text-[11px] font-medium text-primary">Personal</p>
+              <h2 className="mt-0.5 text-lg font-bold text-heading">Ready when you need it</h2>
+              <PreviewFields compact />
+            </div>
+            <div className="mt-4 grid grid-cols-4 border-t border-border/70 px-2 pb-5 pt-2">
+              {VAULT_GROUPS.slice(0, 4).map((group, index) => (
+                <div key={group.label} className={`flex flex-col items-center gap-0.5 text-[9px] font-medium ${index === 0 ? "text-primary" : "text-muted-foreground"}`}>
+                  <group.icon className="h-4 w-4" />
+                  <span className="max-w-full truncate">{group.label}</span>
+                </div>
+              ))}
+            </div>
+            <div className="absolute bottom-1.5 left-1/2 h-1 w-24 -translate-x-1/2 rounded-full bg-heading/70" />
+          </div>
+        </div>
+      </div>
+
+      {/* Tablet mockup (medium screens) */}
+      <div className="landing-vault-preview relative z-10 mx-auto hidden w-[34rem] md:block lg:hidden">
+        <div className="device-bezel relative rounded-[2.2rem] p-3">
+          <div className="glass-pop relative overflow-hidden rounded-[1.5rem] bg-background">
+            <div className="flex items-center justify-between px-6 pt-2.5 text-[11px] font-semibold text-heading">
+              <span className="tabular-nums">9:41</span>
+              <span className="h-2 w-4 rounded-sm bg-heading/80" />
+            </div>
+            <div className="grid min-h-[22rem] grid-cols-[10rem_minmax(0,1fr)]">
+              <aside className="border-r border-border/70 bg-sidebar/55 p-4">
+                <BrandLogo className="w-24" />
+                <div className="mt-6 space-y-1.5">
+                  {VAULT_GROUPS.slice(0, 5).map((group, index) => (
+                    <div key={group.label} className={`flex items-center gap-2 rounded-lg p-2 ${index === 0 ? "glass-nav-active text-primary" : "text-muted-foreground"}`}>
+                      <group.icon className="h-4 w-4 shrink-0" />
+                      <span className="truncate text-xs font-medium">{group.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </aside>
+              <div className="p-5">
+                <div className="flex h-8 items-center gap-2 rounded-lg bg-muted/80 px-3 text-xs text-muted-foreground">
+                  <Search className="h-3.5 w-3.5" /> Search your vault
+                </div>
+                <p className="mt-5 text-xs font-medium text-primary">Personal</p>
+                <h2 className="mt-1 text-xl font-bold text-heading">Ready when you need it</h2>
+                <PreviewFields />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop browser window (large screens) */}
+      <div className="landing-vault-preview relative z-10 mx-auto hidden w-[92%] max-w-xl lg:block">
         <div className="landing-preview-backdrop absolute inset-x-8 -top-5 h-full rounded-[1.75rem]" />
         <div className="vault-frame relative rounded-[1.9rem] p-1.5">
           <div className="glass-pop relative overflow-hidden rounded-[1.55rem]">
-            <div className="flex items-center gap-2 border-b border-border/70 px-4 py-3 sm:px-5">
+            <div className="flex items-center gap-2 border-b border-border/70 px-5 py-3">
               <span className="h-2.5 w-2.5 rounded-full bg-tint-red" />
               <span className="h-2.5 w-2.5 rounded-full bg-tint-yellow" />
               <span className="h-2.5 w-2.5 rounded-full bg-tint-green" />
               <div className="ml-2 flex h-8 flex-1 items-center gap-2 rounded-lg bg-muted/80 px-3 text-xs text-muted-foreground">
                 <Search className="h-3.5 w-3.5" /> Search your vault
-                <kbd className="ml-auto hidden rounded-md border border-border bg-card/70 px-1.5 py-0.5 font-mono text-[10px] sm:inline">⌘ K</kbd>
+                <kbd className="ml-auto rounded-md border border-border bg-card/70 px-1.5 py-0.5 font-mono text-[10px]">⌘ K</kbd>
               </div>
-          </div>
-            <div className="grid min-h-[22rem] grid-cols-[4.75rem_minmax(0,1fr)] sm:grid-cols-[9.5rem_minmax(0,1fr)]">
-              <aside className="border-r border-border/70 bg-sidebar/55 p-3 sm:p-4">
-                <BrandLogo compact className="mx-auto h-8 w-8 sm:mx-0" />
+            </div>
+            <div className="grid min-h-[22rem] grid-cols-[9.5rem_minmax(0,1fr)]">
+              <aside className="border-r border-border/70 bg-sidebar/55 p-4">
+                <BrandLogo compact className="h-8 w-8" />
                 <div className="mt-6 space-y-2">
                   {VAULT_GROUPS.slice(0, 4).map((group, index) => (
                     <div
@@ -114,35 +198,24 @@ function VaultPreview() {
                       className={`flex items-center gap-2 rounded-lg p-2 ${index === 0 ? "glass-nav-active text-primary" : "text-muted-foreground"}`}
                     >
                       <group.icon className="h-4 w-4 shrink-0" />
-                      <span className="hidden text-xs font-medium sm:block">{group.label}</span>
+                      <span className="text-xs font-medium">{group.label}</span>
                     </div>
                   ))}
                 </div>
-                <div className="mt-5 hidden rounded-xl bg-primary/10 p-3 sm:block">
+                <div className="mt-5 rounded-xl bg-primary/10 p-3">
                   <KeyRound className="h-4 w-4 text-primary" />
                   <p className="mt-2 text-[10px] font-semibold text-heading">Your private space</p>
                 </div>
               </aside>
-              <div className="p-4 sm:p-6">
+              <div className="p-6">
                 <div className="flex items-end justify-between gap-3">
                   <div>
                     <p className="text-xs font-medium text-primary">Personal</p>
-                    <h2 className="mt-1 text-xl font-bold text-heading sm:text-2xl">Ready when you need it</h2>
+                    <h2 className="mt-1 text-2xl font-bold text-heading">Ready when you need it</h2>
                   </div>
-                  <span className="hidden text-xs text-muted-foreground sm:block">3 saved fields</span>
+                  <span className="text-xs text-muted-foreground">3 saved fields</span>
                 </div>
-                <div className="mt-5 space-y-3">
-                  {PREVIEW_FIELDS.map(([label, value], index) => (
-                    <div key={label} className="vault-field flex items-center gap-3 rounded-xl bg-card/70 p-3 shadow-sm ring-1 ring-border/70">
-                      <span className={`h-8 w-1 rounded-full ${index === 0 ? "bg-primary" : index === 1 ? "bg-tint-purple" : "bg-tint-green"}`} />
-                      <div className="min-w-0 flex-1">
-                        <p className="text-[11px] font-medium text-muted-foreground">{label}</p>
-                        <p className="truncate text-sm font-semibold text-heading">{value}</p>
-                      </div>
-                      <CopyButton label={label} />
-                    </div>
-                  ))}
-                </div>
+                <PreviewFields />
                 <div className="mt-4 flex items-center gap-2 rounded-xl bg-primary/10 p-3 text-xs font-medium text-primary">
                   <Check className="h-4 w-4" /> Everything in one place
                 </div>
