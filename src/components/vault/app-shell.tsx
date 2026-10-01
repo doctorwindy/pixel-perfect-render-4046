@@ -114,10 +114,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       </a>
 
       <aside className="glass-bar fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r p-4 lg:flex">
-        <Link to="/overview" aria-label="InfoVault home" className="mb-5 block px-1.5">
+        <Link to="/overview" aria-label="InfoVault home" className="mb-8 block px-1.5">
           <BrandLogo className="w-32" />
         </Link>
-        <nav aria-label="Sections" className="flex-1 space-y-0.5 overflow-y-auto">
+        <nav aria-label="Sections" className="flex-1 space-y-1 overflow-y-auto">
           {NAV.filter((n) => n.id !== "settings").map((n) => (
             <NavLink key={n.id} n={n} />
           ))}
