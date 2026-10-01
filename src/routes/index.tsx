@@ -450,7 +450,7 @@ function Landing() {
               <h2 className="mt-6 max-w-lg text-3xl font-bold text-heading sm:text-4xl">Every saved detail is a few keystrokes away.</h2>
               <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">Search your whole vault, jump straight to a section, and copy without breaking your flow.</p>
               <div className="mt-9 rounded-2xl border border-border/70 bg-card/70 p-3 shadow-inset-input">
-                <div className="flex items-center gap-3 px-2 py-1 text-muted-foreground"><Search className="h-4 w-4" /><span className="text-sm">Search email, degree, skills…</span><kbd className="ml-auto rounded-md border border-border bg-muted px-2 py-1 font-mono text-xs">⌘ K</kbd></div>
+                <div className="flex min-w-0 items-center gap-3 px-2 py-1 text-muted-foreground"><Search className="h-4 w-4 shrink-0" /><span className="min-w-0 flex-1 truncate text-sm">Search email, degree, skills…</span><kbd className="ml-auto shrink-0 whitespace-nowrap rounded-md border border-border bg-muted px-2 py-1 font-mono text-xs">⌘ K</kbd></div>
                 <div className="mt-3 flex items-center gap-3 rounded-xl bg-primary/10 p-3 text-sm"><span className="tint-tile grid h-8 w-8 place-items-center rounded-lg bg-tint-blue"><UserRound className="h-4 w-4" /></span><span className="font-medium text-heading">Personal · Email</span><span className="ml-auto text-xs font-semibold text-primary">Copy</span></div>
               </div>
             </article>
