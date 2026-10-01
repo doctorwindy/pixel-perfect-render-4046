@@ -9,9 +9,9 @@ export function BrandLogo({ compact = false, className }: { compact?: boolean; c
   }
 
   return (
-    <picture className={cn("block", className)}>
-      <source srcSet={darkLogo.url} media="(prefers-color-scheme: dark)" />
-      <img src={lightLogo.url} alt="InfoVault — Your personal information, always ready to copy" className="block h-auto w-full object-contain" />
-    </picture>
+    <span className={cn("block", className)}>
+      <img src={lightLogo.url} alt="InfoVault — Your personal information, always ready to copy" className="block h-auto w-full object-contain dark:hidden" />
+      <img src={darkLogo.url} alt="" aria-hidden="true" className="hidden h-auto w-full object-contain dark:block" />
+    </span>
   );
 }
