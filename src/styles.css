@@ -595,13 +595,13 @@
 
 @media (max-width: 767px) {
   .landing-hero::before { width: 34rem; right: -17rem; top: 72%; }
-  .landing-hero-visual { min-height: 29rem; }
+  .landing-hero-visual { min-height: auto; padding-block: 1rem 2.5rem; }
   .landing-hero-visual { grid-template-columns: minmax(0, 1fr); }
   .landing-vault-preview { transform: none; max-width: 100%; min-width: 0; }
   .vault-orbit-outer { width: min(27rem, 92vw); height: min(27rem, 92vw); }
   .vault-orbit-inner { width: min(22rem, 78vw); height: min(22rem, 78vw); }
   .floating-record { display: none; }
-  .floating-copy-path { left: 0.25rem; bottom: -1.25rem; }
+  .floating-copy-path { display: none; }
 }
 
 @keyframes first-record-fade {

@@ -70,6 +70,85 @@ function CopyButton({ label }: { label: string }) {
   );
 }
 
+const DEVICE_FIELDS: ReadonlyArray<readonly [string, string]> = [
+  ["Full name", "Maya Chen"],
+  ["Preferred name", "Maya"],
+  ["Email", "maya.chen@example.com"],
+  ["Phone", "+1 415 555 0142"],
+  ["Professional headline", "Product designer"],
+  ["City", "San Francisco"],
+  ["Nationality", "American"],
+  ["Date of birth", "••••••••"],
+];
+const DEVICE_TABS = ["overview", "personal", "education", "experience"] as const;
+
+function DeviceStatusBar() {
+  return (
+    <div className="relative z-10 flex h-11 shrink-0 items-center justify-between bg-card px-7 text-[13px] font-semibold text-heading">
+      <span className="tabular-nums">9:41</span>
+      <span className="flex items-center gap-1.5">
+        <span className="flex items-end gap-[2px]">
+          {[4, 6, 8, 10].map((h) => <span key={h} className="w-[3px] rounded-sm bg-heading" style={{ height: h }} />)}
+        </span>
+        <span className="h-2.5 w-5 rounded-[3px] border border-heading/70 p-[1px]"><span className="block h-full w-3/4 rounded-[1px] bg-heading" /></span>
+      </span>
+    </div>
+  );
+}
+
+function DeviceAppScreen({ tablet = false }: { tablet?: boolean }) {
+  const tabs = DEVICE_TABS.map((id) => NAV.find((n) => n.id === id)).filter((n): n is NonNullable<typeof n> => Boolean(n));
+  return (
+    <div className="relative flex min-h-0 flex-1 flex-col text-left">
+      <div className="flex shrink-0 items-center gap-3 border-b border-border/60 bg-card px-4 py-2.5 shadow-sm">
+        <BrandLogo className={tablet ? "w-20 shrink-0" : "w-16 shrink-0"} />
+        <div className="flex h-8 flex-1 items-center gap-2 rounded-xl bg-card px-3 text-xs text-muted-foreground ring-1 ring-border/70">
+          <Search className="h-3.5 w-3.5" /> Search everything
+          {tablet ? <kbd className="ml-auto rounded-md bg-muted px-1.5 py-0.5 font-mono text-[10px]">⌘K</kbd> : null}
+        </div>
+      </div>
+      <div className="min-h-0 flex-1 overflow-hidden px-4 pt-5">
+        <div className="flex items-center gap-3">
+          <SectionIcon icon={User} tint="teal" size="lg" className="h-12 w-12 [&>svg]:h-6 [&>svg]:w-6" />
+          <div className="min-w-0">
+            <p className="text-3xl font-extrabold leading-none tracking-[-0.03em] text-heading">Personal</p>
+            <p className="mt-1 text-[11px] leading-snug text-muted-foreground">Click the pencil to edit a field. Sensitive fields stay hidden until you reveal them.</p>
+          </div>
+        </div>
+        <div className={`glass-press mt-3 flex h-9 items-center justify-center gap-2 rounded-xl bg-card text-xs font-semibold text-heading shadow-sm ring-1 ring-border/60 ${tablet ? "w-36" : "w-full"}`}>
+          <Copy className="h-3.5 w-3.5" /> Copy summary
+        </div>
+        <div className="mt-4 rounded-2xl bg-card p-4 shadow-sm ring-1 ring-border/60">
+          <p className="text-xs font-semibold text-muted-foreground">Identity</p>
+          <div className={`mt-2 grid gap-x-4 gap-y-3 ${tablet ? "grid-cols-2" : "grid-cols-1"}`}>
+            {DEVICE_FIELDS.map(([label, value]) => (
+              <div key={label} className="flex min-w-0 items-center gap-2">
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] font-medium text-heading">{label}</p>
+                  <p className="truncate text-[13px] text-foreground tabular-nums">{value}</p>
+                </div>
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-primary"><Copy className="h-3.5 w-3.5" /></span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className={`glass-bar absolute inset-x-0 bottom-0 grid grid-cols-5 border-t px-2 pt-1.5 ${tablet ? "pb-2" : "pb-5"}`}>
+        {tabs.map((n) => (
+          <div key={n.id} className={`flex flex-col items-center gap-1 rounded-xl px-1 py-1.5 text-[10px] font-medium ${n.id === "personal" ? "glass-nav-active text-primary" : "text-foreground/80"}`}>
+            <SectionIcon icon={n.icon} tint={n.tint} size="sm" className="h-6 w-6 [&>svg]:h-3.5 [&>svg]:w-3.5" />
+            <span className="max-w-full truncate">{n.short ?? n.label}</span>
+          </div>
+        ))}
+        <div className="flex flex-col items-center gap-1 px-1 py-1.5 text-[10px] font-medium text-foreground/80">
+          <span className="grid h-6 w-6 place-items-center rounded-lg bg-muted"><MoreHorizontal className="h-3.5 w-3.5" /></span>
+          More
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function PreviewFields({ compact = false }: { compact?: boolean }) {
   return (
     <div className={compact ? "mt-3 space-y-2" : "mt-5 space-y-3"}>
@@ -109,67 +188,23 @@ function VaultPreview() {
       </div>
 
       {/* Phone mockup (small screens) */}
-      <div className="landing-vault-preview relative z-10 mx-auto w-[17.5rem] md:hidden">
-        <div className="device-bezel relative rounded-[2.9rem] p-2.5">
-          <div className="glass-pop relative overflow-hidden rounded-[2.3rem] bg-background">
-            <div className="device-island absolute left-1/2 top-2.5 z-10 h-6 w-24 -translate-x-1/2 rounded-full" />
-            <div className="flex items-center justify-between px-6 pb-1 pt-3 text-[11px] font-semibold text-heading">
-              <span className="tabular-nums">9:41</span>
-              <span className="flex items-center gap-1"><span className="h-2 w-3.5 rounded-sm bg-heading/80" /></span>
-            </div>
-            <div className="flex items-center gap-2 px-4 pb-3 pt-4">
-              <BrandLogo compact className="h-7 w-7 shrink-0" />
-              <div className="flex h-8 flex-1 items-center gap-2 rounded-full bg-muted/80 px-3 text-[11px] text-muted-foreground">
-                <Search className="h-3.5 w-3.5" /> Search
-              </div>
-            </div>
-            <div className="px-4">
-              <p className="text-[11px] font-medium text-primary">Personal</p>
-              <h2 className="mt-0.5 text-lg font-bold text-heading">Ready when you need it</h2>
-              <PreviewFields compact />
-            </div>
-            <div className="mt-4 grid grid-cols-4 border-t border-border/70 px-2 pb-5 pt-2">
-              {VAULT_GROUPS.slice(0, 4).map((group, index) => (
-                <div key={group.label} className={`flex flex-col items-center gap-0.5 text-[9px] font-medium ${index === 0 ? "text-primary" : "text-muted-foreground"}`}>
-                  <group.icon className="h-4 w-4" />
-                  <span className="max-w-full truncate">{group.label}</span>
-                </div>
-              ))}
-            </div>
-            <div className="absolute bottom-1.5 left-1/2 h-1 w-24 -translate-x-1/2 rounded-full bg-heading/70" />
+      <div className="landing-vault-preview relative z-10 mx-auto w-full max-w-[22rem] md:hidden">
+        <div className="device-bezel relative rounded-[3.4rem] p-3">
+          <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[2.7rem] bg-background">
+            <div className="device-island absolute left-1/2 top-3 z-20 h-7 w-28 -translate-x-1/2 rounded-full" />
+            <DeviceStatusBar />
+            <DeviceAppScreen />
+            <div className="absolute bottom-2 left-1/2 z-20 h-1 w-28 -translate-x-1/2 rounded-full bg-heading/80" />
           </div>
         </div>
       </div>
 
       {/* Tablet mockup (medium screens) */}
-      <div className="landing-vault-preview relative z-10 mx-auto hidden w-[34rem] md:block lg:hidden">
-        <div className="device-bezel relative rounded-[2.2rem] p-3">
-          <div className="glass-pop relative overflow-hidden rounded-[1.5rem] bg-background">
-            <div className="flex items-center justify-between px-6 pt-2.5 text-[11px] font-semibold text-heading">
-              <span className="tabular-nums">9:41</span>
-              <span className="h-2 w-4 rounded-sm bg-heading/80" />
-            </div>
-            <div className="grid min-h-[22rem] grid-cols-[10rem_minmax(0,1fr)]">
-              <aside className="border-r border-border/70 bg-sidebar/55 p-4">
-                <BrandLogo className="w-24" />
-                <div className="mt-6 space-y-1.5">
-                  {VAULT_GROUPS.slice(0, 5).map((group, index) => (
-                    <div key={group.label} className={`flex items-center gap-2 rounded-lg p-2 ${index === 0 ? "glass-nav-active text-primary" : "text-muted-foreground"}`}>
-                      <group.icon className="h-4 w-4 shrink-0" />
-                      <span className="truncate text-xs font-medium">{group.label}</span>
-                    </div>
-                  ))}
-                </div>
-              </aside>
-              <div className="p-5">
-                <div className="flex h-8 items-center gap-2 rounded-lg bg-muted/80 px-3 text-xs text-muted-foreground">
-                  <Search className="h-3.5 w-3.5" /> Search your vault
-                </div>
-                <p className="mt-5 text-xs font-medium text-primary">Personal</p>
-                <h2 className="mt-1 text-xl font-bold text-heading">Ready when you need it</h2>
-                <PreviewFields />
-              </div>
-            </div>
+      <div className="landing-vault-preview relative z-10 mx-auto hidden w-full max-w-[38rem] md:block lg:hidden">
+        <div className="device-bezel relative rounded-[2.6rem] p-4">
+          <div className="relative flex aspect-[3/4] flex-col overflow-hidden rounded-[1.8rem] bg-background">
+            <DeviceStatusBar />
+            <DeviceAppScreen tablet />
           </div>
         </div>
       </div>
