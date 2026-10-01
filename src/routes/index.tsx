@@ -43,7 +43,7 @@ function Landing() {
   return (
     <div className="mx-auto flex min-h-screen max-w-4xl flex-col px-5 py-8">
       <header className="flex items-center justify-between">
-        <BrandLogo className="w-40 sm:w-48" />
+        <BrandLogo className="w-36 sm:w-44" />
         <Button asChild variant="secondary">
           <Link to="/auth">Sign in</Link>
         </Button>

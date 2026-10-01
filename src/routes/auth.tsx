@@ -88,7 +88,7 @@ function AuthPage() {
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="glass-slab w-full max-w-sm p-7">
         <div className="mb-6 flex flex-col items-center text-center">
-          <BrandLogo className="mb-5 w-full max-w-60" />
+          <BrandLogo className="mb-5 w-full max-w-52" />
           <h1 className="text-2xl font-bold tracking-[-0.02em] text-heading">
             {sent ? "Check your email" : mode === "in" ? "Welcome back" : "Create your vault"}
           </h1>
