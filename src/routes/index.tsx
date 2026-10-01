@@ -104,7 +104,7 @@ function VaultPreview() {
                 <kbd className="ml-auto hidden rounded-md border border-border bg-card/70 px-1.5 py-0.5 font-mono text-[10px] sm:inline">⌘ K</kbd>
               </div>
           </div>
-            <div className="grid min-h-[22rem] grid-cols-[4.75rem_1fr] sm:grid-cols-[9.5rem_1fr]">
+            <div className="grid min-h-[22rem] grid-cols-[4.75rem_minmax(0,1fr)] sm:grid-cols-[9.5rem_minmax(0,1fr)]">
               <aside className="border-r border-border/70 bg-sidebar/55 p-3 sm:p-4">
                 <BrandLogo compact className="mx-auto h-8 w-8 sm:mx-0" />
                 <div className="mt-6 space-y-2">
