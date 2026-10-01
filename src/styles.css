@@ -148,6 +148,8 @@
   --gradient-destructive: linear-gradient(180deg, oklch(0.69 0.22 28) 0%, oklch(0.6 0.24 28) 100%);
   --inset-input: inset 0 1px 2px oklch(0 0 0 / 7%);
   --page-glow: radial-gradient(60rem 30rem at 85% -10%, oklch(0.603 0.218 257.4 / 9%), transparent 60%), radial-gradient(45rem 26rem at -10% 10%, oklch(0.65 0.2 320 / 6%), transparent 60%);
+  --entry-glow: radial-gradient(42rem 36rem at 88% 14%, oklch(0.603 0.218 257.4 / 16%), transparent 68%), radial-gradient(38rem 34rem at 5% 78%, oklch(0.7 0.05 255 / 10%), transparent 72%);
+  --entry-preview-backdrop: oklch(0.603 0.218 257.4 / 12%);
 }
 
 .dark {
@@ -196,6 +198,41 @@
   --gradient-destructive: linear-gradient(180deg, oklch(0.72 0.2 25) 0%, oklch(0.62 0.22 25) 100%);
   --inset-input: inset 0 1px 3px oklch(0 0 0 / 40%);
   --page-glow: radial-gradient(60rem 30rem at 85% -10%, oklch(0.624 0.206 255.5 / 14%), transparent 60%), radial-gradient(45rem 26rem at -10% 10%, oklch(0.6 0.2 320 / 9%), transparent 60%);
+  --entry-glow: radial-gradient(42rem 36rem at 88% 14%, oklch(0.624 0.206 255.5 / 19%), transparent 68%), radial-gradient(38rem 34rem at 5% 78%, oklch(0.7 0.05 255 / 8%), transparent 72%);
+  --entry-preview-backdrop: oklch(0.624 0.206 255.5 / 16%);
+}
+
+.landing-page,
+.auth-page {
+  background-image: var(--entry-glow);
+  background-attachment: fixed;
+}
+
+.landing-preview-backdrop {
+  background: var(--entry-preview-backdrop);
+  filter: blur(28px);
+  transform: translateY(1.5rem) scale(0.95);
+}
+
+.landing-vault-preview {
+  transform: perspective(80rem) rotateY(-2deg) rotateX(1deg);
+  transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.landing-vault-preview:hover {
+  transform: perspective(80rem) rotateY(0) rotateX(0) translateY(-0.25rem);
+}
+
+.landing-copy-control {
+  background: color-mix(in oklch, var(--primary) 10%, transparent);
+}
+
+.landing-copy-control:hover {
+  background: color-mix(in oklch, var(--primary) 18%, transparent);
+}
+
+.auth-panel {
+  box-shadow: var(--shadow-glass-lg), inset 0 1px 0 var(--glass-highlight), 0 2rem 5rem -3rem color-mix(in oklch, var(--primary) 35%, transparent);
 }
 
 @utility glass-slab {
@@ -431,6 +468,7 @@
   }
   .selection-bar { transform: none !important; transition: opacity 180ms cubic-bezier(0.2, 0.8, 0.2, 1) !important; }
   .first-record-arrive { animation: first-record-fade 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both !important; }
+  .landing-vault-preview { transform: none !important; }
 }
 
 @keyframes first-record-fade {
