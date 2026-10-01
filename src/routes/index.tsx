@@ -72,7 +72,7 @@ function CopyButton({ label }: { label: string }) {
 
 function VaultPreview() {
   return (
-    <div className="landing-hero-visual relative mx-auto w-full max-w-2xl" aria-label="Example InfoVault screen">
+    <div className="landing-hero-visual relative mx-auto w-full min-w-0 max-w-2xl" aria-label="Example InfoVault screen">
       <div className="vault-orbit vault-orbit-outer" aria-hidden="true" />
       <div className="vault-orbit vault-orbit-inner" aria-hidden="true" />
 
@@ -189,8 +189,8 @@ function Landing() {
       </header>
 
       <main id="main-content">
-        <section className="landing-hero relative mx-auto grid min-h-[calc(100dvh-5rem)] max-w-7xl items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14 lg:px-10 lg:pb-24 lg:pt-8">
-          <div className="relative z-10 max-w-xl vault-arrive">
+        <section className="landing-hero relative mx-auto grid min-h-[calc(100dvh-5rem)] max-w-7xl grid-cols-1 items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14 lg:px-10 lg:pb-24 lg:pt-8">
+          <div className="relative z-10 min-w-0 max-w-xl vault-arrive">
             <h1 className="text-5xl font-bold leading-[1.02] text-heading sm:text-6xl lg:text-7xl">
               Every detail. <span className="text-primary">Exactly where you need it.</span>
             </h1>
