@@ -191,9 +191,6 @@ function Landing() {
       <main id="main-content">
         <section className="landing-hero relative mx-auto grid min-h-[calc(100dvh-5rem)] max-w-7xl items-center gap-14 px-5 pb-24 pt-14 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14 lg:px-10 lg:pb-24 lg:pt-8">
           <div className="relative z-10 max-w-xl vault-arrive">
-            <p className="mb-5 inline-flex items-center gap-2 rounded-lg border border-border/70 bg-card/55 px-3 py-1.5 text-xs font-semibold text-muted-foreground shadow-sm backdrop-blur-xl">
-              <LockKeyhole className="h-3.5 w-3.5 text-primary" /> Private to your account
-            </p>
             <h1 className="text-5xl font-bold leading-[1.02] text-heading sm:text-6xl lg:text-7xl">
               Every detail. <span className="text-primary">Exactly where you need it.</span>
             </h1>
