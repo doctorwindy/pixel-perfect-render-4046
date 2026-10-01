@@ -425,7 +425,7 @@ function Landing() {
           </div>
         </section>
 
-        <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28 lg:px-10">
+        <section id="how-it-works" className="mx-auto max-w-7xl px-5 pb-6 pt-20 sm:px-8 sm:pb-8 sm:pt-28 lg:px-10">
           <div data-depth className="depth-reveal max-w-2xl">
             <p className="text-sm font-semibold text-primary">A shorter path from memory to form</p>
             <h2 className="mt-3 text-3xl font-bold text-heading sm:text-5xl">Save once. Stop searching.</h2>
