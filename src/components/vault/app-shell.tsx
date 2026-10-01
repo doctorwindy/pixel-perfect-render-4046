@@ -167,7 +167,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               type="button"
               onClick={() => v.setPaletteOpen(true)}
               variant="ghost"
-              className="flex h-10 w-full max-w-md items-center gap-2 rounded-lg bg-card/70 px-3 text-sm font-normal text-muted-foreground shadow-inset-input hover:text-foreground"
+              className="flex h-10 w-full max-w-2xl items-center gap-2 rounded-lg bg-card/70 px-3 text-sm font-normal text-muted-foreground shadow-inset-input hover:text-foreground"
               aria-label="Search everything"
             >
               <Search className="h-4 w-4" />

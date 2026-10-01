@@ -55,15 +55,42 @@ function SkeletonPanel() {
 }
 
 export function VaultLoadingSkeleton() {
-  return <div className="min-h-screen" role="status" aria-label="Loading your vault">
-    <aside className="glass-bar fixed inset-y-0 left-0 hidden w-64 border-r p-4 lg:block">
-      <Bar className="mb-6 h-9 w-36" />
-      <div className="space-y-3">{NAV.map((n) => <Bar key={n.id} className="h-10 w-full rounded-xl" />)}</div>
-    </aside>
-    <div className="lg:pl-64">
-      <div className="glass-bar flex h-[61px] items-center border-b px-4 lg:px-8"><Bar className="h-9 w-32 lg:hidden" /><Bar className="ml-auto h-10 w-40 max-w-md flex-1 lg:ml-0 lg:w-full" /><Bar className="ml-auto h-10 w-10 rounded-full" /></div>
-      <main className="mx-auto max-w-5xl px-4 pb-32 pt-6 lg:px-8 lg:pb-16 lg:pt-8"><SectionSkeleton /></main>
+  return (
+    <div className="min-h-screen" role="status" aria-label="Loading your vault">
+      <aside className="glass-bar fixed inset-y-0 left-0 hidden w-64 flex-col border-r p-4 lg:flex">
+        <div className="mb-5 flex items-center gap-2.5 px-1.5">
+          <Bar className="h-9 w-9 rounded-xl" />
+          <Bar className="h-5 w-28" />
+        </div>
+        <nav className="flex-1 space-y-0.5 overflow-hidden">
+          {NAV.filter((n) => n.id !== "settings").map((n) => (
+            <div key={n.id} className="flex items-center gap-3 rounded-xl px-2.5 py-2">
+              <Bar className="h-7 w-7 shrink-0 rounded-lg" />
+              <Bar className="h-4 w-24" />
+            </div>
+          ))}
+        </nav>
+        <div className="mt-3 shrink-0 border-t pt-3">
+          <div className="flex items-center gap-3 rounded-xl px-2.5 py-2">
+            <Bar className="h-7 w-7 shrink-0 rounded-lg" />
+            <Bar className="h-4 w-28" />
+          </div>
+        </div>
+      </aside>
+      <div className="lg:pl-64">
+        <div className="glass-bar sticky top-0 flex items-center gap-3 border-b px-5 py-2.5 md:px-8">
+          <Bar className="h-8 w-32 lg:hidden" />
+          <div className="flex flex-1 justify-center">
+            <Bar className="h-10 w-full max-w-2xl rounded-lg" />
+          </div>
+        </div>
+        <main className="mx-auto max-w-5xl px-5 pb-32 pt-6 md:px-8 lg:pb-16 lg:pt-8">
+          <SectionSkeleton />
+        </main>
+      </div>
+      <div className="glass-bar fixed inset-x-0 bottom-0 grid grid-cols-5 border-t px-3 md:px-6 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-1.5 lg:hidden">
+        {[0, 1, 2, 3, 4].map((i) => <Bar key={i} className="h-10 w-10 rounded-xl" />)}
+      </div>
     </div>
-    <div className="glass-bar fixed inset-x-0 bottom-0 flex justify-around border-t p-3 lg:hidden">{[0, 1, 2, 3, 4].map((i) => <Bar key={i} className="h-10 w-10 rounded-xl" />)}</div>
-  </div>;
+  );
 }
