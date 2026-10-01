@@ -333,7 +333,7 @@ function DepthShowcase() {
       </h2>
       <div ref={ref} className="mt-14 grid gap-6 md:grid-cols-3">
         {DEPTH_ITEMS.map((item, i) => (
-          <article key={item.kind} data-depth className="depth-reveal glass-card rounded-[1.75rem] p-6 text-center" style={{ transitionDelay: `${i * 80}ms` }}>
+          <article key={item.kind} data-depth className="depth-reveal rounded-[1.75rem] border border-border bg-card shadow-glass p-6 text-center" style={{ transitionDelay: `${i * 80}ms` }}>
             <DepthObject kind={item.kind} />
             <h3 className="mt-6 text-xl font-semibold text-heading">{item.title}</h3>
             <p className="mt-2 text-muted-foreground">{item.body}</p>
