@@ -1,6 +1,3 @@
-import depthLayers from "@/assets/depth-layers.png";
-import depthVault from "@/assets/depth-vault.png";
-import depthCopy from "@/assets/depth-copy.png";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -294,19 +291,35 @@ const DEPTH_ITEMS = [
   { title: "Copy in one tap", body: "Pull out exactly the value a form asks for, ready to paste.", kind: "copy" },
 ] as const;
 
-const DEPTH_ART = { stack: depthLayers, lock: depthVault, copy: depthCopy } as const;
+const DEPTH_STACK = [
+  { icon: UserRound, tint: "blue" as const, className: "left-1 top-0 -rotate-6" },
+  { icon: GraduationCap, tint: "purple" as const, className: "right-1 top-8 rotate-6" },
+  { icon: BriefcaseBusiness, tint: "orange" as const, className: "left-1/2 top-[4.5rem] -translate-x-1/2" },
+] as const;
 
 function DepthObject({ kind }: { kind: (typeof DEPTH_ITEMS)[number]["kind"] }) {
   return (
     <div className="depth-scene" aria-hidden="true">
-      <img
-        src={DEPTH_ART[kind]}
-        alt=""
-        width={1024}
-        height={1024}
-        loading="lazy"
-        className="depth-art mx-auto h-44 w-auto max-w-full object-contain"
-      />
+      {kind === "stack" ? (
+        <div className="depth-art relative h-40 w-40">
+          {DEPTH_STACK.map(({ icon, tint, className }) => (
+            <SectionIcon
+              key={tint}
+              icon={icon}
+              tint={tint}
+              size="lg"
+              className={`absolute h-16 w-16 rounded-[1.25rem] shadow-glass [&>svg]:h-7 [&>svg]:w-7 ${className}`}
+            />
+          ))}
+        </div>
+      ) : (
+        <SectionIcon
+          icon={kind === "lock" ? LockKeyhole : Copy}
+          tint={kind === "lock" ? "blue" : "green"}
+          size="lg"
+          className="depth-art h-24 w-24 rounded-[1.75rem] shadow-glass [&>svg]:h-10 [&>svg]:w-10"
+        />
+      )}
     </div>
   );
 }
