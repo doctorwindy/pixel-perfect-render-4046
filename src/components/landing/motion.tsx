@@ -22,6 +22,15 @@ import { cn } from "@/lib/utils";
 
 const MOTION_OK = "(prefers-reduced-motion: no-preference)";
 
+/* Entrance animations play only on the first visit in a page load. */
+let landingPlayed = false;
+export function hasLandingPlayed() {
+  return typeof window !== "undefined" && landingPlayed;
+}
+export function markLandingPlayed() {
+  if (typeof window !== "undefined") landingPlayed = true;
+}
+
 function register() {
   if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 }
@@ -63,6 +72,7 @@ export function HeroHeading({ className }: { className?: string }) {
     () => {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
+        if (hasLandingPlayed()) return;
         gsap.from(".hero-word", { yPercent: 115, duration: 1.1, ease: "expo.out", stagger: 0.07, delay: 0.05 });
       });
       return () => mm.revert();
@@ -98,6 +108,7 @@ export function HeroParallax({ children }: { children: ReactNode }) {
     register();
     const mm = gsap.matchMedia();
     mm.add(MOTION_OK, () => {
+      if (hasLandingPlayed()) return;
       const section = ref.current?.closest("section");
       if (!ref.current || !section) return;
       gsap.to(ref.current, {
@@ -228,6 +239,7 @@ export function ScrubStatement() {
       register();
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
+        if (hasLandingPlayed()) return;
         gsap.fromTo(
           ".scrub-word",
           { opacity: 0.12 },
@@ -298,6 +310,7 @@ export function VaultAccordion() {
       register();
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
+        if (hasLandingPlayed()) return;
         gsap.from(".accordion-panel", {
           y: 60,
           opacity: 0,
@@ -402,6 +415,7 @@ export function useDepthScenes(scope: React.RefObject<HTMLElement | null>) {
       register();
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
+        if (hasLandingPlayed()) return;
         gsap.utils.toArray<HTMLElement>(".depth-scene").forEach((scene) => {
           gsap.fromTo(
             scene,

@@ -19,13 +19,15 @@ import {
   User,
   UserRound,
 } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/vault/brand-logo";
 import { SectionIcon } from "@/components/vault/basics";
 import { NAV } from "@/lib/schema";
 import {
   HeroHeading,
+  hasLandingPlayed,
+  markLandingPlayed,
   HeroParallax,
   KeyMarquee,
   ScrollProgress,
@@ -343,6 +345,11 @@ function DepthShowcase() {
 
 function Landing() {
   const navigate = useNavigate();
+  const [replay] = useState(() => hasLandingPlayed());
+  useEffect(() => {
+    const t = window.setTimeout(markLandingPlayed, 500);
+    return () => window.clearTimeout(t);
+  }, []);
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) navigate({ to: "/overview" });
@@ -350,7 +357,7 @@ function Landing() {
   }, [navigate]);
 
   return (
-    <div className="landing-page min-h-screen overflow-hidden">
+    <div className={`landing-page min-h-screen overflow-hidden${replay ? " landing-static" : ""}`}>
       <ScrollProgress />
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-card focus:px-4 focus:py-2 focus:text-foreground focus:shadow-glass">
         Skip to content
