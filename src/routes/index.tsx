@@ -28,7 +28,6 @@ import {
   HeroHeading,
   HeroParallax,
   KeyMarquee,
-  Magnetic,
   ScrollProgress,
   ScrubStatement,
   VaultAccordion,
@@ -379,16 +378,12 @@ function Landing() {
                 Keep the details you use across forms and applications in one organized place. Find them fast, then copy exactly what you need.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:justify-center">
-                <Magnetic>
-                  <Button asChild size="lg">
-                    <Link to="/auth">Get started free <ArrowRight /></Link>
-                  </Button>
-                </Magnetic>
-                <Magnetic>
-                  <Button asChild size="lg" variant="secondary">
-                    <a href="#how-it-works">See how it works</a>
-                  </Button>
-                </Magnetic>
+                <Button asChild size="lg">
+                  <Link to="/auth">Get started free <ArrowRight /></Link>
+                </Button>
+                <Button asChild size="lg" variant="secondary">
+                  <a href="#how-it-works">See how it works</a>
+                </Button>
               </div>
               <p className="mt-5 text-sm text-muted-foreground">No payment details required. Your saved information stays tied to your account.</p>
             </HeroParallax>
